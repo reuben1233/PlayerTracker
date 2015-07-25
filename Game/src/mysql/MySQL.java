@@ -56,6 +56,22 @@ public class MySQL {
 			}	
 		}
 		
+		public static int gems(String uuid){
+			String query = "SELECT gems FROM game WHERE player ='" + uuid + "';";
+		    int temp = 0;
+			try {
+				ResultSet res = connection.createStatement().executeQuery(query);
+				if(res.next()) {
+					temp = res.getInt("gems");
+				}
+				res.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+	              }
+
+		 	return temp;
+		}
+		
 		@SuppressWarnings("finally")
 		public static List<String> getColumn(String columnName) {
 			List<String> temp = new ArrayList<>();
