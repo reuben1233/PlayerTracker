@@ -13,7 +13,7 @@ public class MySQL {
 
 		public static synchronized void openConnection() {
 			try {
-				connection = DriverManager.getConnection("jbdc:mysql://localhost:3306/server", "root", "password");
+				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/server", "root", "password");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -57,16 +57,16 @@ public class MySQL {
 		}
 		
 		@SuppressWarnings("finally")
-		public static List<String> getGame() {
+		public static List<String> getColumn(String columnName) {
 			List<String> temp = new ArrayList<>();
 
-			String query = "SELECT player FROM game;";
+			String query = "SELECT " + columnName + " FROM game";
 
 			try {
 				ResultSet res = connection.prepareStatement(query).executeQuery();
 
 				while (res.next()) {
-					temp.add(res.getString("player"));
+					temp.add(res.getString(columnName));
 				}
 
 				res.close();

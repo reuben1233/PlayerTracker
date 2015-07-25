@@ -9,7 +9,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -27,7 +26,6 @@ public class Runner{
 	public static ArrayList<String> archer = new ArrayList<String>();
 	public static ArrayList<String> frosty = new ArrayList<String>();
 	public static ArrayList<String> none = new ArrayList<String>();
-	public static HashMap<UUID, Integer> gems = new HashMap<>();
 	public static HashMap<Block, Long> _blocks = new HashMap<>();
 	
 	public static int gameID;

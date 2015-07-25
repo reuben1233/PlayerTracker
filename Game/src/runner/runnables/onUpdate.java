@@ -1,7 +1,6 @@
 package runner.runnables;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -94,7 +93,7 @@ public class onUpdate extends BukkitRunnable{
 			Score s7 = obj.getScore("");
 			Score s8 = obj.getScore("§a§lGems");
 			for(Player p :Bukkit.getOnlinePlayers()) {
-			Score s9 = obj.getScore("" + Runner.gems);
+			Score s9 = obj.getScore("");
 			Score s10 = obj.getScore("§3");
 			Score s11 = obj.getScore("§b§lServer");
 			Score s12 = obj.getScore("OlympusDev-1");
@@ -135,8 +134,7 @@ public class onUpdate extends BukkitRunnable{
 			Score s70 = obj.getScore("");
 			Score s80 = obj.getScore("§a§lGems");
 			for(Player p : Bukkit.getOnlinePlayers()) {
-			UUID uuid = p.getUniqueId();
-			Score s90 = obj.getScore("" + Runner.gems.get(uuid));
+			Score s90 = obj.getScore("");
 			Score s100 = obj.getScore("§3");
 			Score s110 = obj.getScore("§b§lServer");
 			Score s120 = obj.getScore("OlympusDev-1");
@@ -177,8 +175,7 @@ public class onUpdate extends BukkitRunnable{
 			Score s700 = obj.getScore("");
 			Score s800 = obj.getScore("§a§lGems");
 			for(Player p : Bukkit.getOnlinePlayers()) {
-			UUID uuid = p.getUniqueId();
-			Score s900 = obj.getScore("" + Runner.gems.get(uuid));
+			Score s900 = obj.getScore("");
 			Score s1000 = obj.getScore("§3");
 			Score s1100 = obj.getScore("§b§lServer");
 			Score s1200 = obj.getScore("OlympusDev-1");
@@ -219,8 +216,7 @@ public class onUpdate extends BukkitRunnable{
 			Score s7000 = obj.getScore("");
 			Score s8000 = obj.getScore("§a§lGems");
 			for(Player p : Bukkit.getOnlinePlayers()) {
-			UUID uuid = p.getUniqueId();
-			Score s9000 = obj.getScore("" + Runner.gems.get(uuid));
+			Score s9000 = obj.getScore("");
 			Score s10000 = obj.getScore("§3");
 			Score s11000 = obj.getScore("§b§lServer");
 			Score s12000 = obj.getScore("OlympusDev-1");
@@ -323,7 +319,7 @@ public class onUpdate extends BukkitRunnable{
 			Score s7 = obj.getScore("");
 			Score s8 = obj.getScore("§a§lGems");
 			for(Player p :Bukkit.getOnlinePlayers()) {
-			Score s9 = obj.getScore("" + Runner.gems);
+			Score s9 = obj.getScore("");
 			Score s10 = obj.getScore("§3");
 			Score s11 = obj.getScore("§b§lServer");
 			Score s12 = obj.getScore("OlympusDev-1");
@@ -364,8 +360,7 @@ public class onUpdate extends BukkitRunnable{
 			Score s70 = obj.getScore("");
 			Score s80 = obj.getScore("§a§lGems");
 			for(Player p : Bukkit.getOnlinePlayers()) {
-			UUID uuid = p.getUniqueId();
-			Score s90 = obj.getScore("" + Runner.gems.get(uuid));
+			Score s90 = obj.getScore("");
 			Score s100 = obj.getScore("§3");
 			Score s110 = obj.getScore("§b§lServer");
 			Score s120 = obj.getScore("OlympusDev-1");
@@ -406,8 +401,7 @@ public class onUpdate extends BukkitRunnable{
 			Score s700 = obj.getScore("");
 			Score s800 = obj.getScore("§a§lGems");
 			for(Player p : Bukkit.getOnlinePlayers()) {
-			UUID uuid = p.getUniqueId();
-			Score s900 = obj.getScore("" + Runner.gems.get(uuid));
+			Score s900 = obj.getScore("");
 			Score s1000 = obj.getScore("§3");
 			Score s1100 = obj.getScore("§b§lServer");
 			Score s1200 = obj.getScore("OlympusDev-1");

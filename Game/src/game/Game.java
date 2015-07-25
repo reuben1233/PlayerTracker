@@ -32,9 +32,10 @@ public class Game extends JavaPlugin {
 	   public static Random r = new Random();
 	   public static int randomint = r.nextInt(2); 
     public void onEnable(){
-    	registerEvents(this, new game.events.Events());
-    	getCommand("game").setExecutor((CommandExecutor) new game.commands.Commands());
     	MySQL.openConnection();
+    	registerEvents(this, new game.events.Events());
+    	new mysql.Adder().runTaskTimer(this, 0L, 20L);
+    	getCommand("game").setExecutor((CommandExecutor) new game.commands.Commands());
     	
     if(randomint == 0){
     	registerEvents(this, new runner.events.Events());
@@ -60,13 +61,6 @@ public class Game extends JavaPlugin {
 			p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
 			World w = Bukkit.getWorld(Runner.selectedMap);
 			p.teleport(Bukkit.getWorld("world").getSpawnLocation());
-			
-			if (!getConfig().contains(p.getUniqueId().toString())) {
-				getConfig().set(p.getUniqueId() + ".Gems", 0);
-				Runner.gems.put(p.getUniqueId(), 0);
-			} else {
-				Runner.gems.put(p.getUniqueId(), getConfig().getInt(p.getUniqueId() + ".Gems"));
-			}
 			
 			Runner.cooldownTime.remove(p);
 			Runner.team.clear();
