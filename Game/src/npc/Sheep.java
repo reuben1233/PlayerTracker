@@ -40,6 +40,21 @@ public class Sheep extends EntitySheep{
 	}
 	
 	@Override
+	public String z(){
+		return "";
+	}
+	
+	@Override
+	public String bo(){
+		return "";
+	}
+	
+	@Override
+	public String bp(){
+		return "";
+	}
+	
+	@Override
 	public void g(double x, double y, double z) {
 		Vector vector = this.getBukkitEntity().getVelocity();
 		super.g(vector.getX(), vector.getY(), vector.getZ());
