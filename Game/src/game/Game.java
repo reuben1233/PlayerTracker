@@ -19,6 +19,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import mysql.MySQL;
 import net.minecraft.server.v1_8_R3.EntitySheep;
 import net.minecraft.server.v1_8_R3.EntitySkeleton;
 import npc.NMSUtils;
@@ -33,6 +34,7 @@ public class Game extends JavaPlugin {
     public void onEnable(){
     	registerEvents(this, new game.events.Events());
     	getCommand("game").setExecutor((CommandExecutor) new game.commands.Commands());
+    	MySQL.openConnection();
     	
     if(randomint == 0){
     	registerEvents(this, new runner.events.Events());
