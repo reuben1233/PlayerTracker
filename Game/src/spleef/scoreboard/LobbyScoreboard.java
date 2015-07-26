@@ -21,7 +21,7 @@ public class LobbyScoreboard implements Listener{
 	public static ArrayList<Player> players = new ArrayList<Player>();
 @EventHandler
 public void onMove(PlayerMoveEvent e){
-	if(players.contains(e.getPlayer())){
+	if(!players.contains(e.getPlayer())){
 	Scoreboard(e.getPlayer());
 	players.add(e.getPlayer());
 	}
