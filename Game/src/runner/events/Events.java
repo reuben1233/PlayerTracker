@@ -38,6 +38,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import net.minecraft.server.v1_8_R3.Block;
 import runner.Runner;
 import runner.Runner.GameState;
 import tracker.TrackerTask;
@@ -121,7 +122,7 @@ public class Events implements Listener{
 		    compass1.setDisplayName("§aPlayer Tracker");
 		    compass.setItemMeta(compass1);
 			p.getInventory().setItem(0, compass);
-			new TrackerTask (p).runTaskTimer((Plugin)this, 0L, 5L);
+			new TrackerTask (p).runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 5L);
 			
 			for(Player on : Bukkit.getOnlinePlayers())
 				on.hidePlayer(p);
@@ -257,7 +258,7 @@ public class Events implements Listener{
 				    compass1.setDisplayName("§aPlayer Tracker");
 				    compass.setItemMeta(compass1);
 					p.getInventory().setItem(0, compass);
-					new TrackerTask (p).runTaskTimer((Plugin) this, 0L, 5L);
+					new TrackerTask (p).runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 5L);
 					}
 					
 					if(!Runner.hasGameState(Runner.GameState.INGAME)  || !Runner.hasGameState(Runner.GameState.INGAMEWAIT)) {

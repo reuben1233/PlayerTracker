@@ -109,7 +109,7 @@ public class onUpdate extends BukkitRunnable{
 				}
 			}
 			
-			if(Runner.seconds > 0)
+			if(Runner.seconds > 1)
 			{
 				Runner.seconds--;
 			}

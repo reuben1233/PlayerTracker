@@ -18,7 +18,8 @@ public class onRun extends BukkitRunnable{
 	public void run() {
 		Bukkit.getWorld("world").setStorm(false);
     	Bukkit.getWorld("world").setThundering(false);
-        if(Runner.hasGameState(GameState.INGAME)) {
+    	for(Player p : Bukkit.getOnlinePlayers())
+        if(Runner.hasGameState(GameState.INGAME) && Runner.alive.contains(p) && Runner.alive.size() > 1 || Runner.testing == true) {
         	    @SuppressWarnings("unused")
 				int xMax;
         	    int x;
