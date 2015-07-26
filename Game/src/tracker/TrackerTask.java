@@ -24,7 +24,7 @@ public class TrackerTask extends BukkitRunnable{
    public void run() {
 	List<Player> players = new ArrayList<> ();
 	for (Player p : player.getWorld().getPlayers()) {
-		if(!p.getUniqueId().equals(player.getUniqueId ()) && (player.canSee(p))){
+		if(!p.getUniqueId().equals(player.getUniqueId())){
 			players.add(p);
 		}
 	}
@@ -32,10 +32,8 @@ public class TrackerTask extends BukkitRunnable{
 	   Collections.sort (players, new TrackerCompare (player));
 	   Player nearest = null;
 	
-	   if(players.size() > 0) {
-		  nearest = players.get (0);
-		  message = "§f§lNearest Player: §e" + nearest.getName() + " §f§lDistance: §e" + (int) nearest.getLocation().distance(player.getLocation());
-	   }
+		  nearest = players.get(0);
+		  message = "§f§lNearest Player: §e" + nearest.getName() + "   §f§lDistance: §e" + (int) nearest.getLocation().distance(player.getLocation()) + "   §f§lHeight: §e" + (int) nearest.getLocation().getBlockY();
 	   if(message.equals(null))
 		   message = "";
 	   

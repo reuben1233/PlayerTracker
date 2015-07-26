@@ -1,21 +1,14 @@
 package spleef.runnables;
 
-import java.util.HashMap;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
-import org.bukkit.DyeColor;
 import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
-import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -27,9 +20,6 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 import ca.wacos.nametagedit.NametagAPI;
 import game.Game;
-import net.minecraft.server.v1_8_R3.EntitySheep;
-import net.minecraft.server.v1_8_R3.EntitySkeleton;
-import npc.NMSUtils;
 import spleef.Spleef;
 import spleef.Spleef.GameState;
 import utils.PacketUtils;
@@ -424,167 +414,9 @@ public class onUpdate extends BukkitRunnable{
 				}
 				else
 				{
-					Spleef.setGameState(GameState.WAITING);
-					World w = Bukkit.getWorld(Spleef.selectedMap);
-					for(Player p : Bukkit.getOnlinePlayers())
-					{
-					p.teleport(Bukkit.getWorld("world").getSpawnLocation());
-					p.getInventory().clear();
-					p.setAllowFlight(false);
+					Game.Runner();
 					
-					for(int i = 0; i < Spleef.dead.size(); i++)
-					{
-						Player pl = Bukkit.getPlayerExact(Spleef.dead.get(i));
-						
-						p.showPlayer(pl);
-					}
-					
-					for(int i = 0; i < Spleef.spec.size(); i++)
-					{
-						Player pl = Bukkit.getPlayerExact(Spleef.spec.get(i));
-						
-						p.showPlayer(pl);
-					}
-					}
-				
-					Bukkit.unloadWorld(w, false);
-					
-					Spleef.dead.clear();
-					Spleef.alive.clear();
-					Spleef.spec.clear();
-					
-					WorldCreator wc = new WorldCreator(Spleef.selectedMap);
-					wc.createWorld();
-					
-					w.setAutoSave(false);
-					//for(Chunk c : w.getLoadedChunks())
-					//{
-					//	c.unload(false, false);
-					//}
-					//RegionFileCache.a();
-					//deleteWorld(new File(Bukkit.getWorld(selectedMap).getName() + "_clone"));
-					Spleef.seconds = 60;
-					
-					Spleef.secs = 0;
-					Spleef.mins = 0;
-					Spleef.hrs = 0;
-					Spleef.timerSecs = 0;
-					Spleef.secondSecs = 0;
-					
-					HandlerList.unregisterAll();
-					Bukkit.getScheduler().cancelAllTasks();
-					Game.registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new runner.events.Events());
-					Game.registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new game.events.Events());
-			    	new runner.runnables.onUpdate().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
-			    	new runner.runnables.onRun().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 1L);
-			    	new runner.runnables.Snowball().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
-			    	new runner.runnables.Arrow().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 40L);
-					
-				    Spleef.cooldownTime = new HashMap<Player, Integer>();
-				    Spleef.cooldownTask = new HashMap<Player, BukkitRunnable>();
-					
-					new NMSUtils().registerEntity("Skeleton", 51, EntitySkeleton.class, npc.Skeleton.class);
-					new NMSUtils().registerEntity("Sheep", 91, EntitySheep.class, npc.Sheep.class);
-					
-					for(Entity e : Bukkit.getWorld("world").getEntities()){
-						if(!(e instanceof Player)){
-							e.remove();
-						}
-					}
-					 for(Player p1 : Bukkit.getOnlinePlayers())
-						{
-						p1.getInventory().clear();
-						p1.playSound(p1.getLocation(), Sound.NOTE_PLING, 100, 1);
-						World w1 = Bukkit.getWorld(Spleef.selectedMap);
-						p1.teleport(Bukkit.getWorld("world").getSpawnLocation());
-						
-						Spleef.cooldownTime.remove(p1);
-						Spleef.team.clear();
-						p1.getInventory().clear();
-						p1.setAllowFlight(false);
-						p1.showPlayer(p1);
-						
-						for(String ded : Spleef.dead)
-						{
-							Player ps = Bukkit.getPlayerExact(ded);
-							p1.showPlayer(ps);
-							ps.showPlayer(p1);
-							
-							if(ded != null)
-							{	
-								p1.showPlayer(ps);
-								ps.showPlayer(p1);
-								ps.teleport(Bukkit.getWorld("world").getSpawnLocation());
-							}
-						}
-						
-						p1.setFlying(false);
-						
-						Spleef.dead.clear();
-						Spleef.alive.clear();
-						
-						Spleef.snowballer.clear();
-						Spleef.archer.clear();
-						Spleef.brawler.clear();
-						
-						Bukkit.unloadWorld(w1, false);
-						
-						Spleef.seconds = 60;
-					
-						}
-					    Spleef.setGameState(Spleef.GameState.WAITING);
-						
-				        ArmorStand am = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), -17, 90, 4), ArmorStand.class);
-				        am.setVisible(false);
-				        am.setCustomName("§eJumper");
-				        am.setCustomNameVisible(true);
-				        am.setGravity(false);
-				        am.setSmall(true);
-				        
-				        ArmorStand am11 = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), -17, 90, 0), ArmorStand.class);
-				        am11.setVisible(false);
-				        am11.setCustomName("§aArcher §f(§c2000 Gems§f)");
-				        am11.setCustomNameVisible(true);
-				        am11.setGravity(false);
-				        am11.setSmall(true);
-				        
-				        ArmorStand am111 = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), -17, 90, -4), ArmorStand.class);
-				        am111.setVisible(false);
-				        am111.setCustomName("§aFrosty §f(§c5000 Gems§f)");
-				        am111.setCustomNameVisible(true);
-				        am111.setGravity(false);
-				        am111.setSmall(true);
-				        
-				        ArmorStand am1111 = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), 18, 102, 0), ArmorStand.class);
-				        am1111.setVisible(false);
-				        am1111.setCustomName("§e§lPlayers Team");
-				        am1111.setCustomNameVisible(true);
-				        am1111.setGravity(false);
-				        am1111.setSmall(true);
-				        
-						final org.bukkit.entity.Skeleton z = npc.Skeleton.spawn(new Location(Bukkit.getWorld("world"), -17, 102.5, 4));
-						z.setCustomName("");
-						z.setCustomNameVisible(false);
-						z.getEquipment().setItemInHand(new ItemStack(Material.IRON_AXE));
-						z.setPassenger(am);
-						
-						final org.bukkit.entity.Skeleton z1 = npc.Skeleton.spawn(new Location(Bukkit.getWorld("world"), -17, 102.5, 0));
-						z1.setCustomName("");
-						z1.setCustomNameVisible(false);
-						z1.getEquipment().setItemInHand(new ItemStack(Material.BOW));
-						z1.setPassenger(am11);
-						
-						final org.bukkit.entity.Skeleton z11 = npc.Skeleton.spawn(new Location(Bukkit.getWorld("world"), -17, 102.5, -4));
-						z11.setCustomName("");
-						z11.setCustomNameVisible(false);
-						z11.getEquipment().setItemInHand(new ItemStack(Material.SNOW_BALL));
-						z11.setPassenger(am111);
-						
-						final org.bukkit.entity.Sheep s = npc.Sheep.spawn(new Location(Bukkit.getWorld("world"), 18, 102.5, 0));
-						s.setColor(DyeColor.YELLOW);
-						s.setCustomName("");
-						s.setCustomNameVisible(false);
-						s.setPassenger(am1111);
+					Game.randomint = 0;
 				}
 				}
 			}
@@ -649,180 +481,9 @@ public class onUpdate extends BukkitRunnable{
 
 	 if(Spleef.hasGameState(GameState.STOPPED))
 		{
-			for(Player p : Bukkit.getOnlinePlayers())
-			{
-			p.getInventory().clear();
-			p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
-			World w = Bukkit.getWorld(Spleef.selectedMap);
-			p.teleport(Bukkit.getWorld("world").getSpawnLocation());
+			Game.Runner();
 			
-			Spleef.team.remove(p.getName());
-			p.getInventory().clear();
-			p.setAllowFlight(false);
-			p.showPlayer(p);
-			
-			for(String ded : Spleef.dead)
-			{
-				Player ps = Bukkit.getPlayerExact(ded);
-				p.showPlayer(ps);
-				ps.showPlayer(p);
-				
-				if(ded != null)
-				{	
-					p.showPlayer(ps);
-					ps.showPlayer(p);
-					ps.teleport(Bukkit.getWorld("world").getSpawnLocation());
-				}	
-				
-			}
-			
-			
-			for(String spc : Spleef.spec)
-			{
-				Player ps = Bukkit.getPlayerExact(spc);
-				p.showPlayer(ps);
-				ps.showPlayer(p);
-				
-				if(spc != null)
-				{	
-					p.showPlayer(ps);
-					ps.showPlayer(p);
-					ps.teleport(Bukkit.getWorld("world").getSpawnLocation());
-				}	
-				
-			}
-			
-			p.setFlying(false);
-			
-			Spleef.dead.clear();
-			Spleef.alive.clear();
-		
-			Bukkit.unloadWorld(w, false);
-			
-			Spleef.seconds = 60;
-			}
-			Spleef.setGameState(GameState.WAITING);
-			
-			Spleef.secs = 0;
-			Spleef.mins = 0;
-			Spleef.hrs = 0;
-			Spleef.timerSecs = 0;
-			Spleef.secondSecs = 0;	
-			
-			HandlerList.unregisterAll();
-			Bukkit.getScheduler().cancelAllTasks();
-			Game.registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new runner.events.Events());
-			Game.registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new game.events.Events());
-	    	new runner.runnables.onUpdate().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
-	    	new runner.runnables.onRun().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 1L);
-	    	new runner.runnables.Snowball().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
-	    	new runner.runnables.Arrow().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 40L);
-			
-		    Spleef.cooldownTime = new HashMap<Player, Integer>();
-		    Spleef.cooldownTask = new HashMap<Player, BukkitRunnable>();
-			
-			new NMSUtils().registerEntity("Skeleton", 51, EntitySkeleton.class, npc.Skeleton.class);
-			new NMSUtils().registerEntity("Sheep", 91, EntitySheep.class, npc.Sheep.class);
-			
-			for(Entity e : Bukkit.getWorld("world").getEntities()){
-				if(!(e instanceof Player)){
-					e.remove();
-				}
-			}
-			 for(Player p1 : Bukkit.getOnlinePlayers())
-				{
-				p1.getInventory().clear();
-				p1.playSound(p1.getLocation(), Sound.NOTE_PLING, 100, 1);
-				World w = Bukkit.getWorld(Spleef.selectedMap);
-				p1.teleport(Bukkit.getWorld("world").getSpawnLocation());
-				
-				Spleef.cooldownTime.remove(p1);
-				Spleef.team.clear();
-				p1.getInventory().clear();
-				p1.setAllowFlight(false);
-				p1.showPlayer(p1);
-				
-				for(String ded : Spleef.dead)
-				{
-					Player ps = Bukkit.getPlayerExact(ded);
-					p1.showPlayer(ps);
-					ps.showPlayer(p1);
-					
-					if(ded != null)
-					{	
-						p1.showPlayer(ps);
-						ps.showPlayer(p1);
-						ps.teleport(Bukkit.getWorld("world").getSpawnLocation());
-					}
-				}
-				
-				p1.setFlying(false);
-				
-				Spleef.dead.clear();
-				Spleef.alive.clear();
-				
-				Spleef.snowballer.clear();
-				Spleef.archer.clear();
-				Spleef.brawler.clear();
-				
-				Bukkit.unloadWorld(w, false);
-				
-				Spleef.seconds = 60;
-			
-				}
-			    Spleef.setGameState(Spleef.GameState.WAITING);
-				
-		        ArmorStand am = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), -17, 90, 4), ArmorStand.class);
-		        am.setVisible(false);
-		        am.setCustomName("§eJumper");
-		        am.setCustomNameVisible(true);
-		        am.setGravity(false);
-		        am.setSmall(true);
-		        
-		        ArmorStand am11 = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), -17, 90, 0), ArmorStand.class);
-		        am11.setVisible(false);
-		        am11.setCustomName("§aArcher §f(§c2000 Gems§f)");
-		        am11.setCustomNameVisible(true);
-		        am11.setGravity(false);
-		        am11.setSmall(true);
-		        
-		        ArmorStand am111 = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), -17, 90, -4), ArmorStand.class);
-		        am111.setVisible(false);
-		        am111.setCustomName("§aFrosty §f(§c5000 Gems§f)");
-		        am111.setCustomNameVisible(true);
-		        am111.setGravity(false);
-		        am111.setSmall(true);
-		        
-		        ArmorStand am1111 = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), 18, 102, 0), ArmorStand.class);
-		        am1111.setVisible(false);
-		        am1111.setCustomName("§e§lPlayers Team");
-		        am1111.setCustomNameVisible(true);
-		        am1111.setGravity(false);
-		        am1111.setSmall(true);
-		        
-				final org.bukkit.entity.Skeleton z = npc.Skeleton.spawn(new Location(Bukkit.getWorld("world"), -17, 102.5, 4));
-				z.setCustomName("");
-				z.setCustomNameVisible(false);
-				z.getEquipment().setItemInHand(new ItemStack(Material.IRON_AXE));
-				z.setPassenger(am);
-				
-				final org.bukkit.entity.Skeleton z1 = npc.Skeleton.spawn(new Location(Bukkit.getWorld("world"), -17, 102.5, 0));
-				z1.setCustomName("");
-				z1.setCustomNameVisible(false);
-				z1.getEquipment().setItemInHand(new ItemStack(Material.BOW));
-				z1.setPassenger(am11);
-				
-				final org.bukkit.entity.Skeleton z11 = npc.Skeleton.spawn(new Location(Bukkit.getWorld("world"), -17, 102.5, -4));
-				z11.setCustomName("");
-				z11.setCustomNameVisible(false);
-				z11.getEquipment().setItemInHand(new ItemStack(Material.SNOW_BALL));
-				z11.setPassenger(am111);
-				
-				final org.bukkit.entity.Sheep s = npc.Sheep.spawn(new Location(Bukkit.getWorld("world"), 18, 102.5, 0));
-				s.setColor(DyeColor.YELLOW);
-				s.setCustomName("");
-				s.setCustomNameVisible(false);
-				s.setPassenger(am1111);
+			Game.randomint = 0;
 		}
 	}	
 		

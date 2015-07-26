@@ -1,7 +1,5 @@
 package runner.runnables;
 
-import java.util.HashMap;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -10,10 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
-import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -27,7 +23,6 @@ import ca.wacos.nametagedit.NametagAPI;
 import game.Game;
 import runner.Runner;
 import runner.Runner.GameState;
-import spleef.Spleef;
 import utils.PacketUtils;
 
 public class onUpdate extends BukkitRunnable{
@@ -372,114 +367,9 @@ public class onUpdate extends BukkitRunnable{
 				}
 				else
 				{
-					Runner.setGameState(GameState.WAITING);
-					World w = Bukkit.getWorld(Runner.selectedMap);
-					for(Player p : Bukkit.getOnlinePlayers())
-					{
-					p.teleport(Bukkit.getWorld("world").getSpawnLocation());
-					p.getInventory().clear();
-					p.setAllowFlight(false);
-					
-					for(int i = 0; i < Runner.dead.size(); i++)
-					{
-						Player pl = Bukkit.getPlayerExact(Runner.dead.get(i));
-						
-						p.showPlayer(pl);
-					}
-					
-					for(int i = 0; i < Runner.spec.size(); i++)
-					{
-						Player pl = Bukkit.getPlayerExact(Runner.spec.get(i));
-						
-						p.showPlayer(pl);
-					}
-					}
-					
-					Bukkit.unloadWorld(w, false);
-					
-					Runner.dead.clear();
-					Runner.alive.clear();
-					Runner.spec.clear();
-					Runner.cooldownTime.clear();
-					
-					WorldCreator wc = new WorldCreator(Runner.selectedMap);
-					wc.createWorld();
-					
-					w.setAutoSave(false);
-					//for(Chunk c : w.getLoadedChunks())
-					//{
-					//	c.unload(false, false);
-					//}
-					//RegionFileCache.a();
-					//deleteWorld(new File(Bukkit.getWorld(selectedMap).getName() + "_clone"));
-					Runner.seconds = 60;
-					
-					Runner.secs = 0;
-					Runner.mins = 0;
-					Runner.hrs = 0;
-					Runner.timerSecs = 0;
-					Runner.secondSecs = 0;
-					
-					HandlerList.unregisterAll();
-					Bukkit.getScheduler().cancelAllTasks();
-					Game.registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new spleef.events.Events());
-					Game.registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new game.events.Events());
-					new spleef.runnables.onUpdate().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
-					new spleef.runnables.onRun().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 40L);
-					
-					for(Entity e : Bukkit.getWorld("world").getEntities()){
-						if(!(e instanceof Player)){
-							e.remove();
-						}
-					}
-					
-				    Spleef.cooldownTime = new HashMap<Player, Integer>();
-				    Spleef.cooldownTask = new HashMap<Player, BukkitRunnable>();
-					
-					for(Player p1 : Bukkit.getOnlinePlayers())
-					{
-					p1.getInventory().clear();
-					p1.playSound(p1.getLocation(), Sound.NOTE_PLING, 100, 1);
-					World w1 = Bukkit.getWorld(Spleef.selectedMap);
-					p1.teleport(Bukkit.getWorld("world").getSpawnLocation());
-					Spleef.team.clear();
-					p1.getInventory().clear();
-					p1.setAllowFlight(false);
-					p1.showPlayer(p1);
-					
-					ItemStack kits = new ItemStack(Material.COMPASS);
-				    ItemMeta kits1 = (ItemMeta) kits.getItemMeta();
-					kits1.setDisplayName("§aKit Selector");
-					kits.setItemMeta(kits1);
-					p1.getInventory().clear();
-					p1.getInventory().setItem(4, kits);
-					
-					Spleef. cooldownTime.clear();
-					
-					for(String ded :Spleef. dead)
-					{
-						Player ps = Bukkit.getPlayerExact(ded);
-						p1.showPlayer(ps);
-						ps.showPlayer(p1);
-						
-						if(ded != null)
-						{	
-							p1.showPlayer(ps);
-							ps.showPlayer(p1);
-							ps.teleport(Bukkit.getWorld("world").getSpawnLocation());
-						}
-					}
-					
-					p1.setFlying(false);
-					
-					Spleef.dead.clear();
-					Spleef.alive.clear();
-					
-					Bukkit.unloadWorld(w1, false);
-					
-					Spleef.seconds = 60;
-					}
-					Spleef.setGameState(Spleef.GameState.WAITING);
+	             Game.randomint = 1;
+	             
+                 Game.Spleef();
 				}
 				
 				}
@@ -526,127 +416,9 @@ public class onUpdate extends BukkitRunnable{
 
 	 if(Runner.hasGameState(GameState.STOPPED))
 		{
-			for(Player p : Bukkit.getOnlinePlayers())
-			{
-			p.getInventory().clear();
-			p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
-			World w = Bukkit.getWorld(Runner.selectedMap);
-			p.teleport(Bukkit.getWorld("world").getSpawnLocation());
-			
-			Runner.team.remove(p.getName());
-			p.getInventory().clear();
-			p.setAllowFlight(false);
-			p.showPlayer(p);
-			
-			for(String ded : Runner.dead)
-			{
-				Player ps = Bukkit.getPlayerExact(ded);
-				p.showPlayer(ps);
-				ps.showPlayer(p);
-				
-				if(ded != null)
-				{	
-					p.showPlayer(ps);
-					ps.showPlayer(p);
-					ps.teleport(Bukkit.getWorld("world").getSpawnLocation());
-				}	
-				
-			}
-			
-			for(String spc : Runner.spec)
-			{
-				Player ps = Bukkit.getPlayerExact(spc);
-				p.showPlayer(ps);
-				ps.showPlayer(p);
-				
-				if(spc != null)
-				{	
-					p.showPlayer(ps);
-					ps.showPlayer(p);
-					ps.teleport(Bukkit.getWorld("world").getSpawnLocation());
-				}	
-				
-			}
-			
-			p.setFlying(false);
-			
-			Runner.	dead.clear();
-			Runner.	alive.clear();
-			Runner.	spec.clear();
-			
-		
-			Bukkit.unloadWorld(w, false);
-			
-			Runner.	seconds = 60;
-			}
-			Runner.	setGameState(GameState.WAITING);
-			
-			Runner.secs = 0;
-			Runner.mins = 0;
-			Runner.hrs = 0;
-			Runner.timerSecs = 0;
-			Runner.secondSecs = 0;
-			
-			HandlerList.unregisterAll();
-			Bukkit.getScheduler().cancelAllTasks();
-			Game.registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new spleef.events.Events());
-			Game.registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new game.events.Events());
-			new spleef.runnables.onUpdate().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
-			new spleef.runnables.onRun().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 40L);
-			
-			for(Entity e : Bukkit.getWorld("world").getEntities()){
-				if(!(e instanceof Player)){
-					e.remove();
-				}
-			}
-			
-		    Spleef.cooldownTime = new HashMap<Player, Integer>();
-		    Spleef.cooldownTask = new HashMap<Player, BukkitRunnable>();
-			
-			for(Player p1 : Bukkit.getOnlinePlayers())
-			{
-			p1.getInventory().clear();
-			p1.playSound(p1.getLocation(), Sound.NOTE_PLING, 100, 1);
-			World w = Bukkit.getWorld(Spleef.selectedMap);
-			p1.teleport(Bukkit.getWorld("world").getSpawnLocation());
-			Spleef.team.clear();
-			p1.getInventory().clear();
-			p1.setAllowFlight(false);
-			p1.showPlayer(p1);
-			
-			ItemStack kits = new ItemStack(Material.COMPASS);
-		    ItemMeta kits1 = (ItemMeta) kits.getItemMeta();
-			kits1.setDisplayName("§aKit Selector");
-			kits.setItemMeta(kits1);
-			p1.getInventory().clear();
-			p1.getInventory().setItem(4, kits);
-			
-			Spleef. cooldownTime.clear();
-			
-			for(String ded :Spleef. dead)
-			{
-				Player ps = Bukkit.getPlayerExact(ded);
-				p1.showPlayer(ps);
-				ps.showPlayer(p1);
-				
-				if(ded != null)
-				{	
-					p1.showPlayer(ps);
-					ps.showPlayer(p1);
-					ps.teleport(Bukkit.getWorld("world").getSpawnLocation());
-				}
-			}
-			
-			p1.setFlying(false);
-			
-			Spleef.dead.clear();
-			Spleef.alive.clear();
-			
-			Bukkit.unloadWorld(w, false);
-			
-			Spleef.seconds = 60;
-			}
-			Spleef.setGameState(Spleef.GameState.WAITING);
+         Game.randomint = 1;
+         
+         Game.Spleef();
 		}
 	}	
 		
