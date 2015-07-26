@@ -67,15 +67,6 @@ public class onUpdate extends BukkitRunnable{
 			{
 				Runner.waitingRoomTimer = 0;
 			}
-			
-			for(Player p : Bukkit.getOnlinePlayers()) {
-			if(!Runner.jumper.contains(p) || !Runner.archer.contains(p) || !Runner.frosty.contains(p)) {
-				Runner.none.add(p.getName());
-			}
-			else{
-				Runner.none.remove(p.getName());
-			}
-			}
 		}
 		else if(Runner.hasGameState(GameState.STARTING))
 		{

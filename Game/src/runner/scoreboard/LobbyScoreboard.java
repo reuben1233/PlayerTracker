@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -22,14 +21,14 @@ public class LobbyScoreboard implements Listener{
 	public static ArrayList<Player> players = new ArrayList<Player>();
 @EventHandler
 public void onMove(PlayerMoveEvent e){
-	Scoreboard();
+	if(!players.contains(e.getPlayer())){
+	Scoreboard(e.getPlayer());
 	players.add(e.getPlayer());
+	}
 }
 
-private void Scoreboard(){
-	for(Player p : Bukkit.getOnlinePlayers()){
-	if(!players.contains(p)){
-		 new BukkitRunnable() {
+public void Scoreboard(Player p){
+	Bukkit.getScheduler().scheduleSyncRepeatingTask(Bukkit.getPluginManager().getPlugin("Game"), new Runnable() {
 	            @Override
 	            public void run() {
 	            	if(Runner.hasGameState(GameState.WAITING)){
@@ -73,27 +72,30 @@ private void Scoreboard(){
 	    				s6 = obj.getScore("Frosty");
 	    			}
 	    			
-	    			s1.setScore(12);
-	    			s2.setScore(11);
-	    			s3.setScore(10);
-	    			s4.setScore(9);
-	    			s5.setScore(8);
-	    			s6.setScore(7);
-	    			s7.setScore(6);
-	    			s8.setScore(5);
-	    			s9.setScore(4);
-	    			s10.setScore(3);
-	    			s11.setScore(2);
-	    			s12.setScore(1);
+	    			s1.setScore(15);
+	    			s2.setScore(14);
+	    			s3.setScore(13);
+	    			s4.setScore(12);
+	    			s5.setScore(11);
+	    			s6.setScore(10);
+	    			s7.setScore(9);
+	    			s8.setScore(8);
+	    			s9.setScore(7);
+	    			s10.setScore(6);
+	    			s11.setScore(5);
+	    			s12.setScore(4);
 	    			
 	    			p.setScoreboard(sc);
 	    			
-	            	} if(Runner.hasGameState(GameState.STARTING)){
+	            	} 
+	            	
+	            	if(Runner.hasGameState(GameState.STARTING)){
 		    			ScoreboardManager manager = Bukkit.getScoreboardManager();
 		    			Scoreboard sc = manager.getNewScoreboard();
 		    			Objective obj = sc.registerNewObjective("stats", "dummy");
 		    			obj.setDisplayName("§f§lStarting in §a§l" + Runner.seconds + " Seconds");
 		    			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+		    			
 		    			Score s1 = obj.getScore("§1");
 		    			Score s2 = obj.getScore("§e§lPlayers");
 		    			Score s3 = obj.getScore("" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
@@ -128,24 +130,23 @@ private void Scoreboard(){
 		    				s6 = obj.getScore("Frosty");
 		    			}
 		    			
-		    			s1.setScore(12);
-		    			s2.setScore(11);
-		    			s3.setScore(10);
-		    			s4.setScore(9);
-		    			s5.setScore(8);
-		    			s6.setScore(7);
-		    			s7.setScore(6);
-		    			s8.setScore(5);
-		    			s9.setScore(4);
-		    			s10.setScore(3);
-		    			s11.setScore(2);
-		    			s12.setScore(1);
+		    			s1.setScore(15);
+		    			s2.setScore(14);
+		    			s3.setScore(13);
+		    			s4.setScore(12);
+		    			s5.setScore(11);
+		    			s6.setScore(10);
+		    			s7.setScore(9);
+		    			s8.setScore(8);
+		    			s9.setScore(7);
+		    			s10.setScore(6);
+		    			s11.setScore(5);
+		    			s12.setScore(4);
 		    			
 		    			p.setScoreboard(sc);
+		    			
 	            	}
 	            }
-	        }.runTaskLater(Bukkit.getPluginManager().getPlugin("Game"), 20L);
-	}
-	}
-	}
+	}, 0L, 20L);
+}
 }

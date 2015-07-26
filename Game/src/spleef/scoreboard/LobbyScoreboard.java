@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -22,14 +21,14 @@ public class LobbyScoreboard implements Listener{
 	public static ArrayList<Player> players = new ArrayList<Player>();
 @EventHandler
 public void onMove(PlayerMoveEvent e){
-	Scoreboard();
+	if(players.contains(e.getPlayer())){
+	Scoreboard(e.getPlayer());
 	players.add(e.getPlayer());
+	}
 }
 
-private void Scoreboard(){
-	for(Player p : Bukkit.getOnlinePlayers()){
-	if(!players.contains(p)){
-		 new BukkitRunnable() {
+public void Scoreboard(Player p){
+	Bukkit.getScheduler().scheduleSyncRepeatingTask(Bukkit.getPluginManager().getPlugin("Game"), new Runnable() {
 	            @Override
 	            public void run() {
 	            	if(Spleef.hasGameState(GameState.WAITING)){
@@ -146,8 +145,6 @@ private void Scoreboard(){
 		    			
 	            	}
 	            }
-	        }.runTaskLater(Bukkit.getPluginManager().getPlugin("Game"), 20L);
-	}
-	}
+	        }, 0L, 20L);
 	}
 }
