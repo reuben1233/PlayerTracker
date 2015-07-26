@@ -20,13 +20,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import ca.wacos.nametagedit.NametagAPI;
 import game.Game;
-import mysql.MySQL;
 import runner.Runner;
 import runner.Runner.GameState;
 import spleef.Spleef;
@@ -117,148 +115,6 @@ public class onUpdate extends BukkitRunnable{
 				}
 			}
 			
-			ScoreboardManager manager = Bukkit.getScoreboardManager();
-			Scoreboard jump = manager.getNewScoreboard();
-			Objective obj = jump.registerNewObjective("stats", "dummy");
-			obj.setDisplayName("§f§lStarting in §a§l" + Runner.seconds +" Seconds");
-			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-			
-			Score s1 = obj.getScore("§1");
-			Score s2 = obj.getScore("§e§lPlayers");
-			Score s3 = obj.getScore("" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
-			Score s4 = obj.getScore("§2");
-			Score s5 = obj.getScore("§7§lKit");
-			Score s6 = obj.getScore("Jumper");
-			Score s7 = obj.getScore("");
-			Score s8 = obj.getScore("§a§lGems");
-			for(Player p :Bukkit.getOnlinePlayers()) {
-			Score s9 = obj.getScore("");
-			Score s10 = obj.getScore("§3");
-			Score s11 = obj.getScore("§b§lServer");
-			Score s12 = obj.getScore("OlympusDev-1");
-			
-			if(Runner.team.containsKey(p.getName()))
-			{
-				s5 = obj.getScore("§e§lKit");
-			}
-	        else if(!Runner.team.containsKey(p.getName())){
-		        s5 = obj.getScore("§7§lKit");
-		    }
-			
-			s1.setScore(12);
-			s2.setScore(11);
-			s3.setScore(10);
-			s4.setScore(9);
-			s5.setScore(8);
-			s6.setScore(7);
-			s7.setScore(6);
-			s8.setScore(5);
-			s9.setScore(4);
-			s10.setScore(3);
-			s11.setScore(2);
-			s12.setScore(1);
-			}
-			
-			Scoreboard arch = manager.getNewScoreboard();
-			obj = arch.registerNewObjective("stats", "dummy");
-			obj.setDisplayName("§f§lStarting in §a§l" + Runner.seconds +" Seconds");
-			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-			
-			Score s10 = obj.getScore("§1");
-			Score s20 = obj.getScore("§e§lPlayers");
-			Score s30 = obj.getScore("" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
-			Score s40 = obj.getScore("§2");
-			Score s50 = obj.getScore("§7§lKit");
-			Score s60 = obj.getScore("Archer");
-			Score s70 = obj.getScore("");
-			Score s80 = obj.getScore("§a§lGems");
-			for(Player p : Bukkit.getOnlinePlayers()) {
-			Score s90 = obj.getScore("");
-			Score s100 = obj.getScore("§3");
-			Score s110 = obj.getScore("§b§lServer");
-			Score s120 = obj.getScore("OlympusDev-1");
-			
-			if(Runner.team.containsKey(p.getName()))
-			{
-				s50 = obj.getScore("§e§lKit");
-			}
-	        else if(!Runner.team.containsKey(p.getName())){
-		        s50 = obj.getScore("§7§lKit");
-		    }
-			
-			s10.setScore(12);
-			s20.setScore(11);
-			s30.setScore(10);
-			s40.setScore(9);
-			s50.setScore(8);
-			s60.setScore(7);
-			s70.setScore(6);
-			s80.setScore(5);
-			s90.setScore(4);
-			s100.setScore(3);
-			s110.setScore(2);
-			s120.setScore(1);
-			}
-			
-			Scoreboard frost = manager.getNewScoreboard();
-			obj = frost.registerNewObjective("stats", "dummy");
-			obj.setDisplayName("§f§lStarting in §a§l" + Runner.seconds +" Seconds");
-			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-			
-			Score s101 = obj.getScore("§1");
-			Score s200 = obj.getScore("§e§lPlayers");
-			Score s300 = obj.getScore("" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
-			Score s400 = obj.getScore("§2");
-			Score s500 = obj.getScore("§7§lKit");
-			Score s600 = obj.getScore("Frosty");
-			Score s700 = obj.getScore("");
-			Score s800 = obj.getScore("§a§lGems");
-			for(Player p : Bukkit.getOnlinePlayers()) {
-			Score s900 = obj.getScore("" + MySQL.gems(p.getUniqueId().toString()));
-			Score s1000 = obj.getScore("§3");
-			Score s1100 = obj.getScore("§b§lServer");
-			Score s1200 = obj.getScore("OlympusDev-1");
-			
-			if(Runner.team.containsKey(p.getName()))
-			{
-				s500 = obj.getScore("§e§lKit");
-			}
-	        else if(!Runner.team.containsKey(p.getName())){
-		        s500 = obj.getScore("§7§lKit");
-		    }
-			
-			s101.setScore(12);
-			s200.setScore(11);
-			s300.setScore(10);
-			s400.setScore(9);
-			s500.setScore(8);
-			s600.setScore(7);
-			s700.setScore(6);
-			s800.setScore(5);
-			s900.setScore(4);
-			s1000.setScore(3);
-			s1100.setScore(2);
-			s1200.setScore(1);
-			}
-			
-			for(String jumper : Runner.jumper)
-			{
-				Player p = Bukkit.getPlayerExact(jumper);
-				p.setScoreboard(jump);
-			}
-		
-			for(String archer : Runner.archer)
-			{
-				Player p = Bukkit.getPlayerExact(archer);
-				p.setScoreboard(arch);
-			}
-			
-			for(String frosty: Runner.frosty)
-			{
-				Player p = Bukkit.getPlayerExact(frosty);
-				p.setScoreboard(frost);
-			}
-			
 			if(Runner.seconds <= 10 && Runner.seconds >= 1)
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
@@ -288,7 +144,7 @@ public class onUpdate extends BukkitRunnable{
 				Runner.seconds = 12;
 				Runner.update = false;
 
-				Scoreboard sc = manager.getNewScoreboard();
+				Scoreboard sc = Bukkit.getScoreboardManager().getNewScoreboard();
 				Objective obj1 = sc.registerNewObjective("stats", "dummy");
 				obj1.setDisplayName("§b§lRunner");
 				obj1.setDisplaySlot(DisplaySlot.SIDEBAR);

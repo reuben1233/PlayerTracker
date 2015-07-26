@@ -62,15 +62,15 @@ private void Scoreboard(){
 	    			
 	    	        if(Runner.jumper.contains(p.getName()))
 	    			{
-	    				s5 = obj.getScore("Jumper");
+	    				s6 = obj.getScore("Jumper");
 	    			}
 	    	        else if(Runner.archer.contains(p.getName()))
 	    			{
-	    				s5 = obj.getScore("Archer");
+	    				s6 = obj.getScore("Archer");
 	    			}
 	    	        else if(Runner.frosty.contains(p.getName()))
 	    			{
-	    				s5 = obj.getScore("Frosty");
+	    				s6 = obj.getScore("Frosty");
 	    			}
 	    			
 	    			s1.setScore(12);
@@ -85,13 +85,15 @@ private void Scoreboard(){
 	    			s10.setScore(3);
 	    			s11.setScore(2);
 	    			s12.setScore(1);
-	            	} else if (Runner.hasGameState(GameState.STARTING)){
+	    			
+	    			p.setScoreboard(sc);
+	    			
+	            	} if(Runner.hasGameState(GameState.STARTING)){
 		    			ScoreboardManager manager = Bukkit.getScoreboardManager();
 		    			Scoreboard sc = manager.getNewScoreboard();
 		    			Objective obj = sc.registerNewObjective("stats", "dummy");
-		    			obj.setDisplayName("§f§lStarting in §a§l" + Runner.seconds +" Seconds");
+		    			obj.setDisplayName("§f§lStarting in §a§l" + Runner.seconds + " Seconds");
 		    			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-		    			
 		    			Score s1 = obj.getScore("§1");
 		    			Score s2 = obj.getScore("§e§lPlayers");
 		    			Score s3 = obj.getScore("" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
@@ -115,15 +117,15 @@ private void Scoreboard(){
 		    			
 		    	        if(Runner.jumper.contains(p.getName()))
 		    			{
-		    				s5 = obj.getScore("Jumper");
+		    				s6 = obj.getScore("Jumper");
 		    			}
 		    	        else if(Runner.archer.contains(p.getName()))
 		    			{
-		    				s5 = obj.getScore("Archer");
+		    				s6 = obj.getScore("Archer");
 		    			}
 		    	        else if(Runner.frosty.contains(p.getName()))
 		    			{
-		    				s5 = obj.getScore("Frosty");
+		    				s6 = obj.getScore("Frosty");
 		    			}
 		    			
 		    			s1.setScore(12);
@@ -138,9 +140,11 @@ private void Scoreboard(){
 		    			s10.setScore(3);
 		    			s11.setScore(2);
 		    			s12.setScore(1);
+		    			
+		    			p.setScoreboard(sc);
 	            	}
-	    	}
-	        }.runTaskLater(Bukkit.getPluginManager().getPlugin("Game"), 20);
+	            }
+	        }.runTaskLater(Bukkit.getPluginManager().getPlugin("Game"), 20L);
 	}
 	}
 	}

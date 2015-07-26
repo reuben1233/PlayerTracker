@@ -13,6 +13,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -33,16 +34,26 @@ public class Game extends JavaPlugin {
 	   public static int randomint = r.nextInt(2); 
     public void onEnable(){
     	MySQL.openConnection();
-    	registerEvents(this, new game.events.Events());
-    	new mysql.Adder().runTaskTimer(this, 0L, 20L);
     	getCommand("game").setExecutor((CommandExecutor) new game.commands.Commands());
     	
     if(randomint == 0){
-    	registerEvents(this, new runner.events.Events());
-    	new runner.runnables.onUpdate().runTaskTimer(this, 0L, 20L);
-    	new runner.runnables.onRun().runTaskTimer(this, 0L, 1L);
-    	new runner.runnables.Snowball().runTaskTimer(this, 0L, 20L);
-    	new runner.runnables.Arrow().runTaskTimer(this, 0L, 40L);
+        Runner();
+    }
+    else if(randomint == 1) {
+        Spleef();
+    }
+}
+    public static void Runner(){
+		HandlerList.unregisterAll();
+		Bukkit.getScheduler().cancelAllTasks();
+    	registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new game.events.Events());
+    	new mysql.Adder().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
+    	registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new runner.events.Events());
+    	registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new runner.scoreboard.LobbyScoreboard());
+    	new runner.runnables.onUpdate().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
+    	new runner.runnables.onRun().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 1L);
+    	new runner.runnables.Snowball().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
+    	new runner.runnables.Arrow().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 40L);
 		
 	    Runner.cooldownTime = new HashMap<Player, Integer>();
 	    Runner.cooldownTask = new HashMap<Player, BukkitRunnable>();
@@ -149,11 +160,19 @@ public class Game extends JavaPlugin {
 			s.setCustomName("");
 			s.setCustomNameVisible(false);
 			s.setPassenger(am1111);
+			
+			runner.scoreboard.LobbyScoreboard.players.clear();
     }
-    else if(randomint == 1) {
-    	registerEvents(this, new spleef.events.Events());
-    	new spleef.runnables.onUpdate().runTaskTimer(this, 0L, 20L);
-    	new spleef.runnables.onRun().runTaskTimer(this, 0L, 40L);
+    
+    public static void Spleef(){
+    	HandlerList.unregisterAll();
+		Bukkit.getScheduler().cancelAllTasks();
+    	registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new game.events.Events());
+    	new mysql.Adder().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
+    	registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new spleef.events.Events());
+    	registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new spleef.scoreboard.LobbyScoreboard());
+    	new spleef.runnables.onUpdate().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
+    	new spleef.runnables.onRun().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 40L);
 		
     	for(Entity e : Bukkit.getWorld("world").getEntities()){
 			if(!(e instanceof Player)){
@@ -208,8 +227,9 @@ public class Game extends JavaPlugin {
 		Spleef.seconds = 60;
 		}
 		Spleef.setGameState(Spleef.GameState.WAITING);
+		
+		spleef.scoreboard.LobbyScoreboard.players.clear();
     }
-}
  
     public static void registerEvents(org.bukkit.plugin.Plugin plugin, Listener... listeners) {
     	for (Listener listener : listeners) {

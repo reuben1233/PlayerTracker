@@ -62,15 +62,15 @@ private void Scoreboard(){
 	    			
 	    	        if(Spleef.snowballer.contains(p.getName()))
 	    			{
-	    				s5 = obj.getScore("Snowballer");
+	    				s6 = obj.getScore("Snowballer");
 	    			}
 	    	        else if(Spleef.archer.contains(p.getName()))
 	    			{
-	    				s5 = obj.getScore("Archer");
+	    				s6 = obj.getScore("Archer");
 	    			}
 	    	        else if(Spleef.brawler.contains(p.getName()))
 	    			{
-	    				s5 = obj.getScore("Brawler");
+	    				s6 = obj.getScore("Brawler");
 	    			}
 	    			
 	    			s1.setScore(12);
@@ -85,11 +85,14 @@ private void Scoreboard(){
 	    			s10.setScore(3);
 	    			s11.setScore(2);
 	    			s12.setScore(1);
-	            	} else if (Spleef.hasGameState(GameState.STARTING)){
+	    			
+	    			p.setScoreboard(sc);
+	    			
+	            	} if (Spleef.hasGameState(GameState.STARTING)){
 		    			ScoreboardManager manager = Bukkit.getScoreboardManager();
 		    			Scoreboard sc = manager.getNewScoreboard();
 		    			Objective obj = sc.registerNewObjective("stats", "dummy");
-		    			obj.setDisplayName("§f§lStarting in §a§l" + Spleef.seconds +" Seconds");
+		    			obj.setDisplayName("§f§lStarting in §a§l" + Spleef.seconds + " Seconds");
 		    			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 		    			
 		    			Score s1 = obj.getScore("§1");
@@ -115,15 +118,15 @@ private void Scoreboard(){
 		    			
 		    	        if(Spleef.snowballer.contains(p.getName()))
 		    			{
-		    				s5 = obj.getScore("Snowballer");
+		    				s6 = obj.getScore("Snowballer");
 		    			}
 		    	        else if(Spleef.archer.contains(p.getName()))
 		    			{
-		    				s5 = obj.getScore("Archer");
+		    				s6 = obj.getScore("Archer");
 		    			}
 		    	        else if(Spleef.brawler.contains(p.getName()))
 		    			{
-		    				s5 = obj.getScore("Brawler");
+		    				s6 = obj.getScore("Brawler");
 		    			}
 		    			
 		    			s1.setScore(12);
@@ -138,9 +141,12 @@ private void Scoreboard(){
 		    			s10.setScore(3);
 		    			s11.setScore(2);
 		    			s12.setScore(1);
+		    			
+		    			p.setScoreboard(sc);
+		    			
 	            	}
-	    	}
-	        }.runTaskLater(Bukkit.getPluginManager().getPlugin("Game"), 20);
+	            }
+	        }.runTaskLater(Bukkit.getPluginManager().getPlugin("Game"), 20L);
 	}
 	}
 	}
