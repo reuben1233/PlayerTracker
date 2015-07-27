@@ -129,6 +129,10 @@ public void Scoreboard(Player p){
 		    			{
 		    				s6 = obj.getScore("Frosty");
 		    			}
+		    	        
+		    			
+		    			if(Runner.seconds == 1)
+		    				obj.setDisplayName("§f§lStarting in §a§l" + Runner.seconds + " Second");
 		    			
 		    			s1.setScore(15);
 		    			s2.setScore(14);

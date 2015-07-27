@@ -50,7 +50,7 @@ public class Commands implements CommandExecutor {
 				if(Runner.hasGameState(Runner.GameState.WAITING))
 				{
 					Runner.setGameState(GameState.STARTING);
-					Runner.seconds = 1;
+					Runner.seconds = 0;
 					Runner.autoStart = true;
 					Bukkit.broadcastMessage("§b§l" + p.getName() + " has started the game.");
 					p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
@@ -59,7 +59,7 @@ public class Commands implements CommandExecutor {
 					if(Spleef.hasGameState(Spleef.GameState.WAITING))
 					{
 						Spleef.setGameState(Spleef.GameState.STARTING);
-						Spleef.seconds = 1;
+						Spleef.seconds = 0;
 						Bukkit.broadcastMessage("§b§l" + p.getName() + " has started the game.");
 						p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
 					}
