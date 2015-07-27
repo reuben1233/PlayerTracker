@@ -38,7 +38,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import net.minecraft.server.v1_8_R3.Block;
 import runner.Runner;
 import runner.Runner.GameState;
 import tracker.TrackerTask;
@@ -165,7 +164,7 @@ public class Events implements Listener{
                 public void run() {
                 	Runner.cooldownTime.put(p, Runner.cooldownTime.get(p) - 1);
                      if (Runner.cooldownTime.get(p) == 0 && Runner.alive.contains(p.getName())) {
-                         	 PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌ §f" + Runner.cooldownTime.get(p) + " Seconds");
+                         	 PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌ §f" + Runner.cooldownTime.get(p) + ".0 Seconds");
                     	     p.sendMessage("§9Recharge> §7You can now use §aLeap§7.");
                     	     Runner.cooldownTime.remove(p);
                     	     Runner.cooldownTask.remove(p);

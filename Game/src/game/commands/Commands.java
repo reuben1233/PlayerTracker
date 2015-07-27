@@ -50,34 +50,20 @@ public class Commands implements CommandExecutor {
 				if(Runner.hasGameState(Runner.GameState.WAITING))
 				{
 					Runner.setGameState(GameState.STARTING);
-					Runner.seconds = 20;
+					Runner.seconds = 1;
 					Runner.autoStart = true;
 					Bukkit.broadcastMessage("§b§l" + p.getName() + " has started the game.");
 					p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
-				}
-				else if(Runner.hasGameState(GameState.STARTING) && Runner.seconds > 20 && Runner.seconds > 0)
-				{
-					Runner.seconds--;
-					Bukkit.broadcastMessage("§b§l" + p.getName() + " has started the game.");
 				}
 				} else if(Game.randomint == 1) {
 					if(Spleef.hasGameState(Spleef.GameState.WAITING))
 					{
 						Spleef.setGameState(Spleef.GameState.STARTING);
-						Spleef.seconds = 10;
+						Spleef.seconds = 1;
 						Bukkit.broadcastMessage("§b§l" + p.getName() + " has started the game.");
 						p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
 					}
-					else if(Runner.hasGameState(GameState.STARTING) && Runner.seconds > 3)
-					{
-						Spleef.seconds = 3;
-						Bukkit.broadcastMessage("§b§l" + p.getName() + " has started the game.");
-					}
-					else
-					{
-						p.sendMessage("§9Game> §7Game has already started.");
-					}
-					}
+				}
 			}
 			if(args[0].equalsIgnoreCase("stop"))
 			{

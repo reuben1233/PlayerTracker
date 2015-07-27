@@ -128,7 +128,6 @@ public class onUpdate extends BukkitRunnable{
 				}
 				Runner.setGameState(GameState.INGAMEWAIT);
 				Runner.seconds = 12;
-				Runner.update = false;
 
 				Scoreboard sc = Bukkit.getScoreboardManager().getNewScoreboard();
 				Objective obj1 = sc.registerNewObjective("stats", "dummy");
@@ -156,7 +155,7 @@ public class onUpdate extends BukkitRunnable{
 			p.setFoodLevel(20);
 			}
 			
-			Runner.globalChatSecs = Runner.seconds;
+			Runner.globalChatSecs = (int) Runner.seconds;
 			
 			if(Runner.seconds == 12)
 			{
@@ -172,7 +171,7 @@ public class onUpdate extends BukkitRunnable{
 				for(Player p : Bukkit.getOnlinePlayers()){
 				p.playSound(p.getLocation(), Sound.LEVEL_UP, 100, 1);
 				
-				PacketUtils.sendActionBar(p, "§fGame Start §c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + " Seconds");
+				PacketUtils.sendActionBar(p, "§fGame Start §c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");
 		        
 				}
 				}
@@ -180,68 +179,68 @@ public class onUpdate extends BukkitRunnable{
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + " Seconds");
+				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");
 				}
 			}
 			else if(Runner.seconds == 10)
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-					PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + " Seconds");
+					PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");
 				}
 			}
 			else if(Runner.seconds == 9)
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-					PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + " Seconds");					}
+					PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");					}
 			    }
 			else if(Runner.seconds == 8)
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-					PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + " Seconds");							}
+					PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");							}
 			}
 			else if(Runner.seconds == 7)
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + " Seconds");							}
+				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");							}
 			}
 			else if(Runner.seconds == 6)
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + " Seconds");							}
+				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");							}
 			}
 			else if(Runner.seconds == 5)
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-					PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + " Seconds");							}
+					PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");							}
 			}
 			else if(Runner.seconds == 4)
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + " Seconds");							}
+				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");							}
 			}
 			else if(Runner.seconds == 3)
 			{	for(Player p : Bukkit.getOnlinePlayers())
 				{
-				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + " Seconds");							}
+				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");							}
 			}
 			else if(Runner.seconds == 2)
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + " Seconds");							}
+				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");							}
 			}
 			else if(Runner.seconds == 1)
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌ §f" + Runner.seconds + " Second");							}
+				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌ §f" + Runner.seconds + ".0 Second");							}
 			}
 			
 			if(Runner.seconds != 0)
@@ -257,7 +256,7 @@ public class onUpdate extends BukkitRunnable{
 				Runner.setGameState(GameState.INGAME);
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌ §f" + Runner.seconds + " Seconds");	
+				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌ §f" + Runner.seconds + ".0 Seconds");	
 				p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
 				p.sendMessage("§9Chat> §7Chat is no longer silenced.");
 				
@@ -327,19 +326,19 @@ public class onUpdate extends BukkitRunnable{
 			
 			  if (Runner.cooldownTime.containsKey(p) & p.getItemInHand().getType() == Material.IRON_AXE && Runner.alive.contains(p.getName())) {
 	            	if(Runner.cooldownTime.get(p) == 5) {
-	    				PacketUtils.sendActionBar(p, "§fLeap §c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner. cooldownTime.get(p) + " Seconds");
+	    				PacketUtils.sendActionBar(p, "§fLeap §c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.cooldownTime.get(p) + ".0 Seconds");
 	            	}	
 	            	if(Runner.cooldownTime.get(p) == 4) {
-	    				PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.cooldownTime.get(p) + " Seconds");
+	    				PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.cooldownTime.get(p) + ".0 Seconds");
 	            	}	
 	            	if(Runner.cooldownTime.get(p) == 3) {
-	    				PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.cooldownTime.get(p) + " Seconds");
+	    				PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.cooldownTime.get(p) + ".0 Seconds");
 	            	}	
 	            	if(Runner.cooldownTime.get(p) == 2) {
-	    				PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.cooldownTime.get(p) + " Seconds");
+	    				PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.cooldownTime.get(p) + ".0 Seconds");
 	            	}	
 	            	if(Runner.cooldownTime.get(p) == 1) {
-	    				PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌ §f" + Runner.cooldownTime.get(p) + " Seconds");
+	    				PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌§c▌§c▌ §f" + Runner.cooldownTime.get(p) + ".0 Seconds");
 	            	}	
 	        }
 				}
