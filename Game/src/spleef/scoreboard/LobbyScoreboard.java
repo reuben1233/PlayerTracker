@@ -50,7 +50,7 @@ public void Scoreboard(Player p){
 	    			Score s9 = obj.getScore("" + MySQL.gems(p.getUniqueId().toString()));
 	    			Score s10 = obj.getScore("§3");
 	    			Score s11 = obj.getScore("§b§lServer");
-	    			Score s12 = obj.getScore("OlympusDev-1");
+	    			Score s12 = obj.getScore("OlympusDev-10");
 	    			
 	    			if(Spleef.team.containsKey(p.getName()))
 	    			{
@@ -106,7 +106,7 @@ public void Scoreboard(Player p){
 		    			Score s9 = obj.getScore("" + MySQL.gems(p.getUniqueId().toString()));
 		    			Score s10 = obj.getScore("§3");
 		    			Score s11 = obj.getScore("§b§lServer");
-		    			Score s12 = obj.getScore("OlympusDev-1");
+		    			Score s12 = obj.getScore("OlympusDev-10");
 		    			
 		    			if(Spleef.team.containsKey(p.getName()))
 		    			{
