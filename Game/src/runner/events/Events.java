@@ -152,7 +152,7 @@ public class Events implements Listener{
         	}	
     }
         
-		if(event.getAction() == Action.RIGHT_CLICK_AIR && p.getItemInHand().getType() == Material.IRON_AXE && Runner.hasGameState(GameState.INGAME) && p.getLocation().getY() < 11 && !Runner.cooldownTime.containsKey(p) || event.getAction() == Action.RIGHT_CLICK_BLOCK && p.getItemInHand().getType() == Material.IRON_AXE && Runner.hasGameState(GameState.INGAME) && p.getLocation().getY() < 11 && !Runner.cooldownTime.containsKey(p)) {
+		if(event.getAction() == Action.RIGHT_CLICK_AIR && p.getItemInHand().getType() == Material.IRON_AXE && Runner.hasGameState(GameState.INGAME) && p.getLocation().getY() < 24 && !Runner.cooldownTime.containsKey(p) || event.getAction() == Action.RIGHT_CLICK_BLOCK && p.getItemInHand().getType() == Material.IRON_AXE && Runner.hasGameState(GameState.INGAME) && p.getLocation().getY() < 24 && !Runner.cooldownTime.containsKey(p)) {
 			
 	        event.setCancelled(true);
 	        Vector v = p.getLocation().getDirection().multiply(1).setY(1);

@@ -1,9 +1,7 @@
 package runner.runnables;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -131,7 +129,7 @@ public class onUpdate extends BukkitRunnable{
 
 				Scoreboard sc = Bukkit.getScoreboardManager().getNewScoreboard();
 				Objective obj1 = sc.registerNewObjective("stats", "dummy");
-				obj1.setDisplayName("§b§lRunner");
+				obj1.setDisplayName("§6§lRUNNER");
 				obj1.setDisplaySlot(DisplaySlot.SIDEBAR);
 					
 				sc.getObjective("stats").getScore("§e").setScore(15);
@@ -296,7 +294,7 @@ public class onUpdate extends BukkitRunnable{
         	ScoreboardManager manager = Bukkit.getScoreboardManager();
 			Scoreboard sc = manager.getNewScoreboard();
 			Objective obj = sc.registerNewObjective("stats", "dummy");
-			obj.setDisplayName("§b§lRunner");
+			obj.setDisplayName("§§lRUNNER");
 			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 			
 			if(Runner.alive.size() < 14) {	
@@ -352,16 +350,13 @@ public class onUpdate extends BukkitRunnable{
 					for(String a : Runner.alive)
 					{
 				    Player p = Bukkit.getPlayerExact(a);
-                    Firework f = (Firework) p.getWorld().spawn(new Location(p.getWorld(), 12.588, 0.9486, 404.568), Firework.class);
-                    
-                    FireworkMeta fm = f.getFireworkMeta();
+                    Firework f = (Firework) p.getWorld().spawn(p.getWorld().getSpawnLocation().add(Math.random() * 160.0D - 80.0D, 10.0D + Math.random() * 20.0D, Math.random() * 160.0D - 80.0D), Firework.class);
+                    FireworkMeta fm = f.getFireworkMeta();                    
                     fm.addEffect(FireworkEffect.builder()
                                     .flicker(false)
-                                    .trail(true)
-                                    .withColor(Color.AQUA)
+                                    .with(FireworkEffect.Type.BALL_LARGE)
+                                    .trail(false)
                                     .build());
-                    fm.setPower(1);
-                    f.setFireworkMeta(fm);
 					}
 				}
 				else

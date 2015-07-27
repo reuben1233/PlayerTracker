@@ -18,8 +18,8 @@ public class onRun extends BukkitRunnable{
 	public void run() {
 		Bukkit.getWorld("world").setStorm(false);
     	Bukkit.getWorld("world").setThundering(false);
-    	for(Player p : Bukkit.getOnlinePlayers())
-        if(Runner.hasGameState(GameState.INGAME) && Runner.alive.contains(p) && Runner.alive.size() > 1 || Runner.testing == true) {
+    	for(Player p : Bukkit.getOnlinePlayers()){
+        if(Runner.hasGameState(GameState.INGAME) && Runner.alive.contains(p.getName()) && Runner.alive.size() > 1 || Runner.hasGameState(GameState.INGAME) && Runner.alive.contains(p.getName()) && Runner.testing == true) {
         	    @SuppressWarnings("unused")
 				int xMax;
         	    int x;
@@ -130,6 +130,7 @@ public class onRun extends BukkitRunnable{
         	      Runner._blocks.put((Block)block, Long.valueOf(System.currentTimeMillis()));
         	    }	
         	    }
+        }
      }
    }
 }

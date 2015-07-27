@@ -14,6 +14,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import mysql.MySQL;
+import runner.Runner;
 import spleef.Spleef;
 import spleef.Spleef.GameState;
 
@@ -127,6 +128,10 @@ public void Scoreboard(Player p){
 		    			{
 		    				s6 = obj.getScore("Brawler");
 		    			}
+		    	        
+		    			if(Runner.seconds == 1)
+		    				obj.setDisplayName("§f§lStarting in §a§l" + Runner.seconds + " Second");
+		    			
 		    			
 		    			s1.setScore(12);
 		    			s2.setScore(11);
