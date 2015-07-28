@@ -44,6 +44,9 @@ public class Game extends JavaPlugin {
     }
 }
     public static void Runner(){
+    	
+    	Game.randomint = 0;
+    	
 		HandlerList.unregisterAll();
 		Bukkit.getScheduler().cancelAllTasks();
     	registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new game.events.Events());
@@ -52,6 +55,7 @@ public class Game extends JavaPlugin {
     	registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new runner.scoreboard.LobbyScoreboard());
     	new runner.runnables.onUpdate().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
     	new runner.runnables.onRun().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 1L);
+    	new runner.runnables.onWin().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 1L);
     	new runner.runnables.Snowball().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
     	new runner.runnables.Arrow().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 40L);
 		
@@ -74,33 +78,26 @@ public class Game extends JavaPlugin {
 			p.teleport(Bukkit.getWorld("world").getSpawnLocation());
 			
 			Runner.cooldownTime.remove(p);
-			Runner.team.clear();
-			p.getInventory().clear();
-			p.setAllowFlight(false);
-			p.showPlayer(p);
-			
-			for(String ded : Runner.dead)
-			{
-				Player ps = Bukkit.getPlayerExact(ded);
-				p.showPlayer(ps);
-				ps.showPlayer(p);
-				
-				if(ded != null)
-				{	
-					p.showPlayer(ps);
-					ps.showPlayer(p);
-					ps.teleport(Bukkit.getWorld("world").getSpawnLocation());
-				}
-			}
-			
-			p.setFlying(false);
-			
+			Spleef.dead.clear();
+			Spleef.alive.clear();
 			Runner.dead.clear();
 			Runner.alive.clear();
 			
 			Runner.jumper.clear();
 			Runner.archer.clear();
 			Runner.frosty.clear();
+			Spleef.snowballer.clear();
+			Spleef.brawler.clear();
+			Spleef.archer.clear();
+			
+			
+			if(p.isOp()){
+				p.setAllowFlight(false);
+			}
+			
+			p.getInventory().clear();
+			p.showPlayer(p);
+			p.setFlying(false);
 			
 			Bukkit.unloadWorld(w, false);
 			
@@ -165,6 +162,9 @@ public class Game extends JavaPlugin {
     }
     
     public static void Spleef(){
+    	
+    	Game.randomint = 1;
+    	
     	HandlerList.unregisterAll();
 		Bukkit.getScheduler().cancelAllTasks();
     	registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new game.events.Events());
@@ -173,6 +173,7 @@ public class Game extends JavaPlugin {
     	registerEvents(Bukkit.getPluginManager().getPlugin("Game"), new spleef.scoreboard.LobbyScoreboard());
     	new spleef.runnables.onUpdate().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
     	new spleef.runnables.onRun().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 40L);
+    	new spleef.runnables.onWin().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 1L);
 		
     	for(Entity e : Bukkit.getWorld("world").getEntities()){
 			if(!(e instanceof Player)){
@@ -190,9 +191,13 @@ public class Game extends JavaPlugin {
 		World w = Bukkit.getWorld(Spleef.selectedMap);
 		p.teleport(Bukkit.getWorld("world").getSpawnLocation());
 		Spleef.team.clear();
+		Runner.team.clear();
 		p.getInventory().clear();
-		p.setAllowFlight(false);
 		p.showPlayer(p);
+		
+		if(p.isOp()){
+			p.setAllowFlight(false);
+		}
 		
 		ItemStack kits = new ItemStack(Material.COMPASS);
 	    ItemMeta kits1 = (ItemMeta) kits.getItemMeta();
@@ -201,26 +206,22 @@ public class Game extends JavaPlugin {
 		p.getInventory().clear();
 		p.getInventory().setItem(4, kits);
 		
-		Spleef. cooldownTime.clear();
-		
-		for(String ded :Spleef. dead)
-		{
-			Player ps = Bukkit.getPlayerExact(ded);
-			p.showPlayer(ps);
-			ps.showPlayer(p);
-			
-			if(ded != null)
-			{	
-				p.showPlayer(ps);
-				ps.showPlayer(p);
-				ps.teleport(Bukkit.getWorld("world").getSpawnLocation());
-			}
-		}
+		Spleef.cooldownTime.clear();
 		
 		p.setFlying(false);
 		
 		Spleef.dead.clear();
 		Spleef.alive.clear();
+		Runner.dead.clear();
+		Runner.alive.clear();
+		
+		Runner.jumper.clear();
+		Runner.archer.clear();
+		Runner.frosty.clear();
+		Spleef.snowballer.clear();
+		Spleef.brawler.clear();
+		Spleef.archer.clear();
+		
 		
 		Bukkit.unloadWorld(w, false);
 		

@@ -1,10 +1,7 @@
 package game.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Sound;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,15 +26,11 @@ public class Commands implements CommandExecutor {
 				{
 					Game.Runner();
 					
-					Game.randomint = 0;
-					
 					Bukkit.broadcastMessage("§b§l" + p.getName() + " has changed game to Runner.");
 				}
 				else if(args[1].equalsIgnoreCase("Spleef"))
 				{
 					Game.Spleef();
-					
-					Game.randomint = 1;
 					
 					Bukkit.broadcastMessage("§b§l" + p.getName() + " has changed game to Spleef.");
 				}
@@ -47,7 +40,7 @@ public class Commands implements CommandExecutor {
 			if(args[0].equalsIgnoreCase("start"))
 			{
 				if(Game.randomint == 0) {
-				if(Runner.hasGameState(Runner.GameState.WAITING))
+				if(Runner.hasGameState(Runner.GameState.WAITING) || Runner.hasGameState(Runner.GameState.STARTING))
 				{
 					Runner.setGameState(GameState.STARTING);
 					Runner.seconds = 0;
@@ -56,24 +49,22 @@ public class Commands implements CommandExecutor {
 					p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
 				}
 				} else if(Game.randomint == 1) {
-					if(Spleef.hasGameState(Spleef.GameState.WAITING))
+					if(Spleef.hasGameState(Spleef.GameState.WAITING) || Spleef.hasGameState(Spleef.GameState.STARTING))
 					{
 						Spleef.setGameState(Spleef.GameState.STARTING);
 						Spleef.seconds = 0;
 						Bukkit.broadcastMessage("§b§l" + p.getName() + " has started the game.");
 						p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
 					}
+				  }
 				}
-			}
 			if(args[0].equalsIgnoreCase("stop"))
 			{
 				if(Game.randomint == 0) {
-				if(Runner.hasGameState(GameState.INGAME))
+				if(Runner.hasGameState(GameState.INGAME) || Runner.hasGameState(GameState.INGAMEWAIT) || Runner.hasGameState(GameState.STARTING))
 				{
 					Bukkit.broadcastMessage("§b§l" + p.getName() + " has stopped the game.");
 					p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
-					
-					Game.randomint = 1;
 					
 					Game.Spleef();
 				}
@@ -83,36 +74,13 @@ public class Commands implements CommandExecutor {
 						Bukkit.broadcastMessage("§b§l" + p.getName() + " has stopped the game.");
 						p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
 						
-						Game.randomint = 0;
-						
 						Game.Runner();
 					}
 				}
 			   }
-			if(args[0].equalsIgnoreCase("edit"))
-				{
-					if(Runner.hasGameState(GameState.WAITING) || Runner.hasGameState(GameState.STARTING)) {
-						WorldCreator wc = new WorldCreator(Runner.selectedMap);
-						wc.createWorld();
-						World cw = Bukkit.getWorld(Runner.selectedMap);
-						p.teleport(cw.getSpawnLocation());
-						p.getInventory().clear();
-						p.setGameMode(GameMode.CREATIVE);
-						p.setAllowFlight(true);
-					}
-			    }
-				if(args[0].equalsIgnoreCase("done"))
-				{
-					if(Runner.hasGameState(GameState.WAITING) || Runner.hasGameState(GameState.STARTING)) {
-					p.teleport(Bukkit.getWorld("world").getSpawnLocation());
-					p.getInventory().clear();
-					p.setGameMode(GameMode.SURVIVAL);
-					p.setAllowFlight(false);
-					p.getInventory().clear();
-					}
-			    }
 			    if(args[0].equalsIgnoreCase("autostart"))
 				{
+			    	if(Game.randomint == 0) {
 					if(Runner.hasGameState(GameState.WAITING) || Runner.hasGameState(GameState.STARTING)) {
                     if(Runner.autoStart == true) {
                     	Runner.autoStart = false;
@@ -123,9 +91,22 @@ public class Commands implements CommandExecutor {
                     	Bukkit.broadcastMessage("§a§lAuto-start enabled!");
                     }
 					}
+			    	} else if(Game.randomint == 0) {
+						if(Spleef.hasGameState(Spleef.GameState.WAITING) || Spleef.hasGameState(Spleef.GameState.STARTING)) {
+		                    if(Spleef.autoStart == true) {
+		                    	Spleef.autoStart = false;
+		                    	Bukkit.broadcastMessage("§c§lAuto-start disabled!");
+		                    }
+		                    else if(Spleef.autoStart == false) {
+		                    	Spleef.autoStart = true;
+		                    	Bukkit.broadcastMessage("§a§lAuto-start enabled!");
+		                    }
+							}
+					    	}
 			    }
 				if(args[0].equalsIgnoreCase("testing"))
 				{
+					if(Game.randomint == 0) {
 					if(Runner.hasGameState(GameState.WAITING) || Runner.hasGameState(GameState.STARTING)) {
                     if(Runner.testing == false) {
                     	Runner.testing = true;
@@ -135,6 +116,18 @@ public class Commands implements CommandExecutor {
                     	Runner.testing = false;
                     	Bukkit.broadcastMessage("§c§lTesting disabled!");
                     }
+					}
+					} else if (Game.randomint == 1){
+						if(Spleef.hasGameState(Spleef.GameState.WAITING) || Spleef.hasGameState(Spleef.GameState.STARTING)) {
+		                    if(Spleef.testing == false) {
+		                    	Spleef.testing = true;
+		                    	Bukkit.broadcastMessage("§a§lTesting enabled!");
+		                    }
+		                    else if(Spleef.testing == true) {
+		                    	Spleef.testing = false;
+		                    	Bukkit.broadcastMessage("§c§lTesting disabled!");
+		                    }
+							}
 					}
 			    }
 		return false;

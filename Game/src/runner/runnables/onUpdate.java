@@ -1,15 +1,12 @@
 package runner.runnables;
 
 import org.bukkit.Bukkit;
-import org.bukkit.FireworkEffect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -153,7 +150,7 @@ public class onUpdate extends BukkitRunnable{
 			p.setFoodLevel(20);
 			}
 			
-			Runner.globalChatSecs = (int) Runner.seconds;
+			Runner.globalChatSecs = Runner.seconds;
 			
 			if(Runner.seconds == 12)
 			{
@@ -168,6 +165,27 @@ public class onUpdate extends BukkitRunnable{
 				Bukkit.broadcastMessage("§2§l§m=============================================");
 				for(Player p : Bukkit.getOnlinePlayers()){
 				p.playSound(p.getLocation(), Sound.LEVEL_UP, 100, 1);
+				
+				
+				if(Runner.jumper.contains(p.getName())) {
+					ItemStack axe = new ItemStack(Material.IRON_AXE);
+				    ItemMeta axe1 = (ItemMeta) axe.getItemMeta();
+				    axe1.setDisplayName("§fIron Axe");
+				    axe.setItemMeta(axe1);
+					ItemMeta meta = axe.getItemMeta();
+					meta.spigot().setUnbreakable(true);
+					axe.setItemMeta(meta);
+					p.getInventory().addItem(axe);
+			   } else if(Runner.archer.contains(p.getName())) {
+						ItemStack bow = new ItemStack(Material.BOW);
+					    ItemMeta bow1 = (ItemMeta) bow.getItemMeta();
+					    bow1.setDisplayName("§fBow");
+					    bow.setItemMeta(bow1);
+						ItemMeta meta = bow.getItemMeta();
+						meta.spigot().setUnbreakable(true);
+						bow.setItemMeta(meta);
+						p.getInventory().addItem(bow);
+					}
 				
 				PacketUtils.sendActionBar(p, "§fGame Start §c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");
 		        
@@ -238,7 +256,7 @@ public class onUpdate extends BukkitRunnable{
 			{
 				for(Player p : Bukkit.getOnlinePlayers())
 				{
-				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌ §f" + Runner.seconds + ".0 Second");							}
+				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§c▌§c▌ §f" + Runner.seconds + ".0 Seconds");							}
 			}
 			
 			if(Runner.seconds != 0)
@@ -257,26 +275,6 @@ public class onUpdate extends BukkitRunnable{
 				PacketUtils.sendActionBar(p, "§fGame Start §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌ §f" + Runner.seconds + ".0 Seconds");	
 				p.playSound(p.getLocation(), Sound.NOTE_PLING, 100, 1);
 				p.sendMessage("§9Chat> §7Chat is no longer silenced.");
-				
-				if(Runner.jumper.contains(p.getName())) {
-					ItemStack axe = new ItemStack(Material.IRON_AXE);
-				    ItemMeta axe1 = (ItemMeta) axe.getItemMeta();
-				    axe1.setDisplayName("§fIron Axe");
-				    axe.setItemMeta(axe1);
-					ItemMeta meta = axe.getItemMeta();
-					meta.spigot().setUnbreakable(true);
-					axe.setItemMeta(meta);
-					p.getInventory().addItem(axe);
-			   } else if(Runner.archer.contains(p.getName())) {
-						ItemStack bow = new ItemStack(Material.BOW);
-					    ItemMeta bow1 = (ItemMeta) bow.getItemMeta();
-					    bow1.setDisplayName("§fBow");
-					    bow.setItemMeta(bow1);
-						ItemMeta meta = bow.getItemMeta();
-						meta.spigot().setUnbreakable(true);
-						bow.setItemMeta(meta);
-						p.getInventory().addItem(bow);
-					}
 				}
 				Runner.seconds = 10;
 				Runner.chatMuted = false;
@@ -294,7 +292,7 @@ public class onUpdate extends BukkitRunnable{
         	ScoreboardManager manager = Bukkit.getScoreboardManager();
 			Scoreboard sc = manager.getNewScoreboard();
 			Objective obj = sc.registerNewObjective("stats", "dummy");
-			obj.setDisplayName("§§lRUNNER");
+			obj.setDisplayName("§6§lRUNNER");
 			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 			
 			if(Runner.alive.size() < 14) {	
@@ -346,18 +344,6 @@ public class onUpdate extends BukkitRunnable{
 				if(Runner.seconds != 0)
 				{
 					Runner.seconds--;
-					
-					for(String a : Runner.alive)
-					{
-				    Player p = Bukkit.getPlayerExact(a);
-                    Firework f = (Firework) p.getWorld().spawn(p.getWorld().getSpawnLocation().add(Math.random() * 160.0D - 80.0D, 10.0D + Math.random() * 20.0D, Math.random() * 160.0D - 80.0D), Firework.class);
-                    FireworkMeta fm = f.getFireworkMeta();                    
-                    fm.addEffect(FireworkEffect.builder()
-                                    .flicker(false)
-                                    .with(FireworkEffect.Type.BALL_LARGE)
-                                    .trail(false)
-                                    .build());
-					}
 				}
 				else
 				{

@@ -41,6 +41,8 @@ public class Spleef
 	public static int waitingRoomTimer = 0;
 	public static int timerSecs = 0;
 	public static int secondSecs = 0;
+	public static boolean autoStart = true;
+	public static boolean testing = false;
 	
 	public static Player publicPl;
 	

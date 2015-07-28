@@ -104,14 +104,11 @@ public class Events implements Listener{
 		
         if (event.getAction() == Action.RIGHT_CLICK_AIR && p.getItemInHand().getType() == Material.IRON_AXE && Spleef.cooldownTime.containsKey(p)|| event.getAction() == Action.RIGHT_CLICK_BLOCK && p.getItemInHand().getType() == Material.IRON_AXE && Spleef.cooldownTime.containsKey(p) && Spleef.alive.contains(p)) {
         	if(Spleef.cooldownTime.get(p) != 1) {
-				p.sendMessage("§9Recharge> §7You cannot use §aLeap§7 for §a" + Spleef.cooldownTime.get(p) + " §aSeconds§7.");
-        	}	
-        	if(Spleef.cooldownTime.get(p) == 1) {
-				p.sendMessage("§9Recharge> §7You cannot use §aLeap§7 for §a" + Spleef.cooldownTime.get(p) + " §aSecond§7.");
+				p.sendMessage("§9Recharge> §7You cannot use §aLeap§7 for §a" + Spleef.cooldownTime.get(p) + ".0 §aSeconds§7.");
         	}	
     }
         
-		if(event.getAction() == Action.RIGHT_CLICK_AIR && p.getItemInHand().getType() == Material.IRON_AXE && Spleef.hasGameState(GameState.INGAME) && p.getLocation().getY() < 11 && !Spleef.cooldownTime.containsKey(p) || event.getAction() == Action.RIGHT_CLICK_BLOCK && p.getItemInHand().getType() == Material.IRON_AXE && Spleef.hasGameState(GameState.INGAME) && p.getLocation().getY() < 11 && !Spleef.cooldownTime.containsKey(p)) {
+		if(event.getAction() == Action.RIGHT_CLICK_AIR && p.getItemInHand().getType() == Material.IRON_AXE && Spleef.hasGameState(GameState.INGAME) && p.getLocation().getY() < 13 && !Spleef.cooldownTime.containsKey(p) || event.getAction() == Action.RIGHT_CLICK_BLOCK && p.getItemInHand().getType() == Material.IRON_AXE && Spleef.hasGameState(GameState.INGAME) && p.getLocation().getY() < 13 && !Spleef.cooldownTime.containsKey(p)) {
 			
 	        event.setCancelled(true);
 	        Vector v = p.getLocation().getDirection().multiply(1).setY(1);
@@ -123,7 +120,7 @@ public class Events implements Listener{
                 public void run() {
                 	Spleef.cooldownTime.put(p, Spleef.cooldownTime.get(p) - 1);
                      if (Spleef.cooldownTime.get(p) == 0 && Spleef.alive.contains(p.getName())) {
-                    	     PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌ §f" + Spleef.cooldownTime.get(p) + " Seconds");
+                    	     PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌ §f" + Spleef.cooldownTime.get(p) + ".0 Seconds");
                     	     p.sendMessage("§9Recharge> §7You can now use §aLeap§7.");
                     	     Spleef.cooldownTime.remove(p);
                     	     Spleef.cooldownTask.remove(p);
