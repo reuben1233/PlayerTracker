@@ -183,6 +183,9 @@ public class Game extends JavaPlugin {
 		
 	    Spleef.cooldownTime = new HashMap<Player, Integer>();
 	    Spleef.cooldownTask = new HashMap<Player, BukkitRunnable>();
+	    
+		new NMSUtils().registerEntity("Skeleton", 51, EntitySkeleton.class, npc.Skeleton.class);
+		new NMSUtils().registerEntity("Sheep", 91, EntitySheep.class, npc.Sheep.class);
 		
 		for(Player p : Bukkit.getOnlinePlayers())
 		{
@@ -228,6 +231,58 @@ public class Game extends JavaPlugin {
 		Spleef.seconds = 60;
 		}
 		Spleef.setGameState(Spleef.GameState.WAITING);
+		
+        ArmorStand am = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), -17, 90, 4), ArmorStand.class);
+        am.setVisible(false);
+        am.setCustomName("§eSnowballer");
+        am.setCustomNameVisible(true);
+        am.setGravity(false);
+        am.setSmall(true);
+        
+        ArmorStand am11 = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), -17, 90, 0), ArmorStand.class);
+        am11.setVisible(false);
+        am11.setCustomName("§aBrawler §f(§c2000 Gems§f)");
+        am11.setCustomNameVisible(true);
+        am11.setGravity(false);
+        am11.setSmall(true);
+        
+        ArmorStand am111 = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), -17, 90, -4), ArmorStand.class);
+        am111.setVisible(false);
+        am111.setCustomName("§aArcher §f(§c5000 Gems§f)");
+        am111.setCustomNameVisible(true);
+        am111.setGravity(false);
+        am111.setSmall(true);
+        
+        ArmorStand am1111 = (ArmorStand) Bukkit.getWorld("world").spawn(new Location(Bukkit.getWorld("world"), 18, 102, 0), ArmorStand.class);
+        am1111.setVisible(false);
+        am1111.setCustomName("§e§lPlayers Team");
+        am1111.setCustomNameVisible(true);
+        am1111.setGravity(false);
+        am1111.setSmall(true);
+        
+		final org.bukkit.entity.Skeleton z = npc.Skeleton.spawn(new Location(Bukkit.getWorld("world"), -17, 102.5, 4));
+		z.setCustomName("");
+		z.setCustomNameVisible(false);
+		z.getEquipment().setItemInHand(new ItemStack(Material.IRON_AXE));
+		z.setPassenger(am);
+		
+		final org.bukkit.entity.Skeleton z1 = npc.Skeleton.spawn(new Location(Bukkit.getWorld("world"), -17, 102.5, 0));
+		z1.setCustomName("");
+		z1.setCustomNameVisible(false);
+		z1.getEquipment().setItemInHand(new ItemStack(Material.BOW));
+		z1.setPassenger(am11);
+		
+		final org.bukkit.entity.Skeleton z11 = npc.Skeleton.spawn(new Location(Bukkit.getWorld("world"), -17, 102.5, -4));
+		z11.setCustomName("");
+		z11.setCustomNameVisible(false);
+		z11.getEquipment().setItemInHand(new ItemStack(Material.SNOW_BALL));
+		z11.setPassenger(am111);
+		
+		final org.bukkit.entity.Sheep s = npc.Sheep.spawn(new Location(Bukkit.getWorld("world"), 18, 102.5, 0));
+		s.setColor(DyeColor.YELLOW);
+		s.setCustomName("");
+		s.setCustomNameVisible(false);
+		s.setPassenger(am1111);
 		
 		spleef.scoreboard.LobbyScoreboard.players.clear();
     }
