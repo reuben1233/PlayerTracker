@@ -56,7 +56,7 @@ public class Game extends JavaPlugin {
     	new runner.runnables.onUpdate().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
     	new runner.runnables.onRun().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 1L);
     	new runner.runnables.onWin().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 1L);
-    	new runner.runnables.Snowball().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 20L);
+    	new runner.runnables.Snowball().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 10L);
     	new runner.runnables.Arrow().runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 0L, 40L);
 		
 	    Runner.cooldownTime = new HashMap<Player, Integer>();
@@ -91,7 +91,7 @@ public class Game extends JavaPlugin {
 			Spleef.archer.clear();
 			
 			
-			if(p.isOp()){
+			if(!p.isOp()){
 				p.setAllowFlight(false);
 			}
 			
@@ -198,7 +198,7 @@ public class Game extends JavaPlugin {
 		p.getInventory().clear();
 		p.showPlayer(p);
 		
-		if(p.isOp()){
+		if(!p.isOp()){
 			p.setAllowFlight(false);
 		}
 		

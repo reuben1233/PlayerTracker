@@ -154,6 +154,9 @@ public class onUpdate extends BukkitRunnable{
 			
 			if(Runner.seconds == 12)
 			{
+				Bukkit.broadcastMessage("");
+				Bukkit.broadcastMessage("");
+				Bukkit.broadcastMessage("");
 				Bukkit.broadcastMessage("§2§l§m=============================================");
 				Bukkit.broadcastMessage("§aGame - §e§lRunner");
 				Bukkit.broadcastMessage("");
@@ -282,7 +285,7 @@ public class onUpdate extends BukkitRunnable{
 }
 
         else if(Runner.hasGameState(GameState.INGAME))
-		{	
+        {	
 			for(Player p : Bukkit.getOnlinePlayers())
 			{ 
 				p.setHealth(20);
@@ -360,11 +363,27 @@ public class onUpdate extends BukkitRunnable{
 				Runner.setGameState(GameState.STOPPED);
 			}
 			
-			if(Runner.alive.size() == 0 && Runner.seconds == 9 & Runner.hasGameState(GameState.INGAME)) {
-				Runner.setGameState(GameState.STOPPED);
+			if(Runner.alive.size() == 0 && Runner.seconds == 9 && Runner.hasGameState(GameState.INGAME)) {
+				Bukkit.broadcastMessage("");
+				Bukkit.broadcastMessage("");
+				Bukkit.broadcastMessage("");
+				Bukkit.broadcastMessage("§2§l§m=============================================");
+				Bukkit.broadcastMessage("§aGame - §e§lRunner");
+				Bukkit.broadcastMessage("");
+				Bukkit.broadcastMessage("§eNobody won the game");
+				Bukkit.broadcastMessage("");
+				Bukkit.broadcastMessage("§aMap - §e§l" + Runner.customMapName + " §7created by §e§l" + Runner.customMapCreator);
+				Bukkit.broadcastMessage("§2§l§m=============================================");
+               
+				for(Player p :Bukkit.getOnlinePlayers()) {
+					PacketUtils.sendTitle(p, "§eNobody", "§ewon the game", 20, 200, 20);
+			  }
 			}
 			if(Runner.alive.size() + Runner.dead.size() == 2 && Runner.seconds == 9 && !(Runner.alive.size() == 0) & Runner.hasGameState(GameState.INGAME))
 				{
+				    Bukkit.broadcastMessage("");
+				    Bukkit.broadcastMessage("");
+				    Bukkit.broadcastMessage("");
 					Bukkit.broadcastMessage("§2§l§m=============================================");
 					Bukkit.broadcastMessage("§aGame - §e§lRunner");
 					Bukkit.broadcastMessage("");
@@ -379,6 +398,9 @@ public class onUpdate extends BukkitRunnable{
 				}
 			if(Runner.alive.size() + Runner.dead.size() >= 3 && Runner.seconds == 9 && !(Runner.alive.size() == 0) & Runner.hasGameState(GameState.INGAME))
 			{
+				Bukkit.broadcastMessage("");
+				Bukkit.broadcastMessage("");
+				Bukkit.broadcastMessage("");
 				Bukkit.broadcastMessage("§2§l§m=============================================");
 				Bukkit.broadcastMessage("§aGame - §e§lRunner");
 				Bukkit.broadcastMessage("");

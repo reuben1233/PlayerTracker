@@ -83,7 +83,7 @@ public class Events implements Listener{
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e)
 	{
-		if(!Spleef.hasGameState(GameState.INGAME) && e.getPlayer().getGameMode() != GameMode.CREATIVE || Spleef.dead.contains(e.getPlayer().getName()) || Spleef.spec.contains(e.getPlayer().getName()))
+		if(e.getPlayer().getGameMode() != GameMode.CREATIVE)
 		{
 			e.setCancelled(true);
 		}
@@ -133,7 +133,7 @@ public class Events implements Listener{
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e)
 	{
-		if(!Spleef.hasGameState(GameState.INGAME) && e.getPlayer().getGameMode() != GameMode.CREATIVE || Spleef.dead.contains(e.getPlayer().getName()))
+		if(e.getPlayer().getGameMode() != GameMode.CREATIVE)
 		{
 			e.setCancelled(true);
 		}
@@ -152,12 +152,12 @@ public class Events implements Listener{
 		}
 	  }
 		
-		if(Spleef.hasGameState(GameState.INGAMEWAIT) || Spleef.dead.contains(event.getPlayer()) || Spleef.alive.size() <= 1)
+		if(Spleef.hasGameState(GameState.INGAMEWAIT) || Spleef.dead.contains(event.getPlayer()) || Spleef.alive.size() <= 1 && Spleef.testing == false)
 		{
 			event.setCancelled(true);
 		}
 	
-		if(event.getAction() == Action.LEFT_CLICK_BLOCK && Spleef.hasGameState(GameState.INGAME) && !Spleef.dead.contains(event.getPlayer().getName()) && Spleef.alive.size() > 1)
+		if(event.getAction() == Action.LEFT_CLICK_BLOCK && Spleef.hasGameState(GameState.INGAME) && !Spleef.dead.contains(event.getPlayer().getName()) && Spleef.alive.size() > 1 || event.getAction() == Action.LEFT_CLICK_BLOCK && Spleef.hasGameState(GameState.INGAME) && !Spleef.dead.contains(event.getPlayer().getName()) && Spleef.testing == true)
 		{
 				    event.getClickedBlock().setType(Material.AIR);
 				 
@@ -255,13 +255,18 @@ public class Events implements Listener{
 				Spleef.archer.remove(player.getName());
 				Spleef.snowballer.add(player.getName());
 				player.playSound(player.getLocation(), Sound.ORB_PICKUP, 2.0F, 1.0F);
+				player.sendMessage("");
+				player.sendMessage("");
+				player.sendMessage("");
 				player.sendMessage("§2§l§m=============================================");
 				player.sendMessage("§aKit - §f§lSnowballer");
 				player.sendMessage(" §7Throw snowballs to break blocks!");
-				player.sendMessage("");
 				player.sendMessage(" §7Receives 1 Snowball when you punch blocks!");
 				player.sendMessage("");
+				player.sendMessage("§f§lKnockback");
+				player.sendMessage(" §7Attacks gives knockback with 0.3 power");
 				player.sendMessage("§2§l§m=============================================");
+				player.sendMessage("§9Kit> §7You equipped §a§lSnowballer Kit§7.");
 			}
           e.setCancelled(true);
           player.closeInventory();
@@ -272,13 +277,24 @@ public class Events implements Listener{
 				Spleef.archer.remove(player.getName());
 				Spleef.brawler.add(player.getName());
 				player.playSound(player.getLocation(), Sound.ORB_PICKUP, 2.0F, 1.0F);
+				player.sendMessage("");
+				player.sendMessage("");
+				player.sendMessage("");
 				player.sendMessage("§2§l§m=============================================");
 				player.sendMessage("§aKit - §f§lBrawler");
-				player.sendMessage(" §7Very leap. Much Wow.");
+				player.sendMessage(" §7Very leap. Such Knockback. Wow.");
 				player.sendMessage("");
+				player.sendMessage("§f§lLeaper");
 				player.sendMessage(" §eRight-Click §7with an axe to §aLeap");
 				player.sendMessage("");
+				player.sendMessage("§f§lSmasher");
+				player.sendMessage(" §7Hitting blocks damages all surrounding blocks");
+				player.sendMessage("");
+				player.sendMessage("§f§lKnockback");
+				player.sendMessage(" §7Attacks gives knockback with 0.6 power.");
+				player.sendMessage("");
 				player.sendMessage("§2§l§m=============================================");
+				player.sendMessage("§9Kit> §7You equipped §a§lBrawler Kit§7.");
 			}
             e.setCancelled(true);
             player.closeInventory();
@@ -289,13 +305,20 @@ public class Events implements Listener{
 				Spleef.brawler.remove(player.getName());
 				Spleef.archer.add(player.getName());
 				player.playSound(player.getLocation(), Sound.ORB_PICKUP, 2.0F, 1.0F);
+				player.sendMessage("");
+				player.sendMessage("");
+				player.sendMessage("");
 				player.sendMessage("§2§l§m=============================================");
 				player.sendMessage("§aKit - §f§lArcher");
-				player.sendMessage(" §7Shoot Arrows to break blocks!");
+				player.sendMessage(" §7Arrows will damage spleef blocks in a small radius.");
 				player.sendMessage("");
-				player.sendMessage(" §7Receives 1 Arrow every 2 seconds. Maximum of 2.");
+				player.sendMessage("§f§lFletcher");
+				player.sendMessage(" §7Receive 1 Arrow every 2 seconds. Maximum of 2.");
 				player.sendMessage("");
+				player.sendMessage("§f§lKnockback");
+				player.sendMessage(" §7Attacks gives knockback with 0.3 power.");
 				player.sendMessage("§2§l§m=============================================");
+				player.sendMessage("§9Kit> §7You equipped §a§lArcher Kit§7.");
 			}
                 e.setCancelled(true);
                 player.closeInventory();
@@ -369,20 +392,13 @@ public class Events implements Listener{
 					if(!Spleef.hasGameState(GameState.INGAME)  || !Spleef.hasGameState(GameState.INGAMEWAIT) || Spleef.alive.size() != 1) {
 						p.teleport(p.getWorld().getSpawnLocation());
 					}
-					if(Spleef.alive.size() == 1 && Spleef.alive.contains(p.getName())) {
+					if(Spleef.alive.size() == 1 && Spleef.alive.contains(p.getName()) && Spleef.testing == false) {
 						p.setAllowFlight(true);
 						p.setFlying(true);
 						p.getInventory().clear();
 						Spleef.dead.add(p.getName());
 						Spleef.alive.remove(p.getName());
 					}
-				    
-			for(String ingame : Spleef.alive)
-			{
-				Player pl = Bukkit.getPlayerExact(ingame);
-				
-				pl.hidePlayer(p);
-			}
 			
 			for(String deads : Spleef.dead)
 			{

@@ -64,6 +64,60 @@ public class Events implements Listener{
     }
 	
 	@EventHandler
+    public void onNpcClick(EntityDamageByEntityEvent e) {
+		Player player = (Player) e.getDamager();
+	    if(e.getEntity().getPassenger().getCustomName().equals("§eJumper")){
+			Runner.archer.remove(player.getName());
+			Runner.frosty.remove(player.getName());
+			Runner.jumper.add(player.getName());
+			player.playSound(player.getLocation(), Sound.ORB_PICKUP, 2.0F, 1.0F);
+			player.sendMessage("");
+			player.sendMessage("");
+			player.sendMessage("");
+			player.sendMessage("§2§l§m=============================================");
+			player.sendMessage("§aKit - §f§lJumper");
+			player.sendMessage(" §7Leap to avoid falling to your death!");
+			player.sendMessage("");
+			player.sendMessage("§f§lLeaper");
+			player.sendMessage(" §eRight-Click §7with an axe to §aLeap");
+			player.sendMessage("§2§l§m=============================================");
+			player.sendMessage("§9Kit> §7You equipped §e§lJumper Kit§7.");
+	    } else if(e.getEntity().getPassenger().getCustomName().equals("§aArcher §f(§c2000 Gems§f)")){
+			Runner.jumper.remove(player.getName());
+			Runner.frosty.remove(player.getName());
+			Runner.archer.add(player.getName());
+			player.playSound(player.getLocation(), Sound.ORB_PICKUP, 2.0F, 1.0F);
+			player.sendMessage("");
+			player.sendMessage("");
+			player.sendMessage("");
+			player.sendMessage("§2§l§m=============================================");
+			player.sendMessage("§aKit - §f§lArcher");
+			player.sendMessage(" §7Fire arrows to cause blocks to fall!");
+			player.sendMessage("");
+			player.sendMessage("§f§lQuickshot");
+			player.sendMessage(" §eLeft-Click §7with Bow to §aQuickshot");
+			player.sendMessage("§2§l§m=============================================");
+			player.sendMessage("§9Kit> §7You equipped §a§lArcher Kit§7.");
+	    } else if(e.getEntity().getPassenger().getCustomName().equals("§aFrosty §f(§c5000 Gems§f)")){
+			Runner.jumper.remove(player.getName());
+			Runner.archer.remove(player.getName());
+			Runner.frosty.add(player.getName());
+			player.playSound(player.getLocation(), Sound.ORB_PICKUP, 2.0F, 1.0F);
+			player.sendMessage("");
+			player.sendMessage("");
+			player.sendMessage("");
+			player.sendMessage("§2§l§m=============================================");
+			player.sendMessage("§aKit - §f§lFrosty");
+			player.sendMessage(" §7Slow enemies to send them to their death!");
+			player.sendMessage("");
+			player.sendMessage("§f§lFrost Balls");
+			player.sendMessage(" §7Receive 1 Snowball every 0.5 seconds. Maximum of 16.");
+			player.sendMessage("§2§l§m=============================================");
+			player.sendMessage("§9Kit> §7You equipped §a§lFrosty Kit§7.");
+	    }
+    }
+	
+	@EventHandler
 	public void onProjectileHit(ProjectileHitEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof Snowball || entity instanceof Arrow) {
@@ -166,6 +220,43 @@ public class Events implements Listener{
                      if (Runner.cooldownTime.get(p) == 0 && Runner.alive.contains(p.getName())) {
                          	 PacketUtils.sendActionBar(p, "§fLeap §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌ §f" + Runner.cooldownTime.get(p) + ".0 Seconds");
                     	     p.sendMessage("§9Recharge> §7You can now use §aLeap§7.");
+                    	     Runner.cooldownTime.remove(p);
+                    	     Runner.cooldownTask.remove(p);
+                             cancel();
+                }
+                }});
+	            Runner.cooldownTask.get(p).runTaskTimer(Bukkit.getPluginManager().getPlugin("Game"), 20, 20);
+		}}
+	
+	@EventHandler
+    public void onQuickshot(PlayerInteractEvent event) {
+   
+        final Player p = event.getPlayer();  
+		
+        if (event.getAction() == Action.LEFT_CLICK_AIR && p.getItemInHand().getType() == Material.BOW && Runner.cooldownTime.containsKey(p)|| event.getAction() == Action.LEFT_CLICK_BLOCK && p.getItemInHand().getType() == Material.BOW && Runner.cooldownTime.containsKey(p) && Runner.alive.contains(p)) {
+        	if(Runner.cooldownTime.get(p) != 1) {
+				p.sendMessage("§9Recharge> §7You cannot use §aQuickshot§7 for §a" + Runner.cooldownTime.get(p) + " §aSeconds§7.");
+        	}	
+        	if(Runner.cooldownTime.get(p) == 1) {
+				p.sendMessage("§9Recharge> §7You cannot use §aQuickshot§7 for §a" + Runner.cooldownTime.get(p) + " §aSecond§7.");
+        	}	
+    }
+        
+		if(event.getAction() == Action.LEFT_CLICK_AIR && p.getItemInHand().getType() == Material.BOW && Runner.hasGameState(GameState.INGAME) && !Runner.cooldownTime.containsKey(p) || event.getAction() == Action.LEFT_CLICK_BLOCK && p.getItemInHand().getType() == Material.BOW && Runner.hasGameState(GameState.INGAME) && !Runner.cooldownTime.containsKey(p)) {
+			
+			Player player = event.getPlayer();
+	        event.setCancelled(true);
+	        Arrow arrow = (Arrow)player.launchProjectile(Arrow.class);
+	        arrow.setVelocity(player.getLocation().getDirection().multiply(3));
+
+
+	        Runner.cooldownTime.put(p, 5);
+	        Runner.cooldownTask.put(p, new BukkitRunnable() {
+                public void run() {
+                	Runner.cooldownTime.put(p, Runner.cooldownTime.get(p) - 1);
+                     if (Runner.cooldownTime.get(p) == 0 && Runner.alive.contains(p.getName())) {
+                         	 PacketUtils.sendActionBar(p, "§fQuickshot §a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌§a▌ §f" + Runner.cooldownTime.get(p) + ".0 Seconds");
+                    	     p.sendMessage("§9Recharge> §7You can now use §aQuickshot§7.");
                     	     Runner.cooldownTime.remove(p);
                     	     Runner.cooldownTask.remove(p);
                              cancel();
@@ -303,7 +394,7 @@ public class Events implements Listener{
 			e.getPlayer().sendMessage("§9Chat> §7Chat is silenced for §a" + Runner.globalChatSecs + "§a Seconds§7.");
 		}
 		}
-
+	
 	@EventHandler
 	public void onPlayerDeath(EntityDamageEvent e)
 	{

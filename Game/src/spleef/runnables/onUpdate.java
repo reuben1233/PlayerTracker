@@ -165,12 +165,16 @@ public class onUpdate extends BukkitRunnable{
 			
 			if(Spleef.seconds == 12)
 			{
+				Bukkit.broadcastMessage("");
+				Bukkit.broadcastMessage("");
+				Bukkit.broadcastMessage("");
 				Bukkit.broadcastMessage("§2§l§m=============================================");
 				Bukkit.broadcastMessage("§aGame - §e§lSpleef");
 				Bukkit.broadcastMessage("");
-				Bukkit.broadcastMessage(" Free for all fight to the death!");
-				Bukkit.broadcastMessage(" Break blocks to restore hunger!");
-				Bukkit.broadcastMessage(" Last player alive wins!");
+				Bukkit.broadcastMessage("Blocks fall from underneath you"); 
+				Bukkit.broadcastMessage("Keep running to stay alive"); 
+				Bukkit.broadcastMessage("Avoid falling blocks from above"); 
+				Bukkit.broadcastMessage("Last player alive wins!");
 				Bukkit.broadcastMessage("");
 				Bukkit.broadcastMessage("§aMap - §e§l" + Spleef.customMapName + " §7created by §e§l" + Spleef.customMapCreator);
 				Bukkit.broadcastMessage("§2§l§m=============================================");
@@ -294,6 +298,9 @@ public class onUpdate extends BukkitRunnable{
 
         else if(Spleef.hasGameState(GameState.INGAME))
 		{	
+			for(Player p : Bukkit.getOnlinePlayers()){
+				p.setFoodLevel(p.getPlayer().getFoodLevel() - 1);
+			}
 			
 			ScoreboardManager manager = Bukkit.getScoreboardManager();
 			Scoreboard sc = manager.getNewScoreboard();
@@ -356,28 +363,19 @@ public class onUpdate extends BukkitRunnable{
 				else
 				{
 					Game.Runner();
-					
-					Game.randomint = 0;
 				}
 				}
 			}
 
-				if(Spleef.alive.size() + Spleef.dead.size() == 1 && Spleef.seconds == 9 & Spleef.hasGameState(GameState.INGAME)) {
-					
-					Bukkit.broadcastMessage("§2§l§m=============================================");
-					Bukkit.broadcastMessage("§aGame - §e§lSpleef");
+		if(Spleef.alive.size() + Spleef.dead.size() == 1 && Spleef.hasGameState(GameState.INGAME) && Spleef.testing == false) {
+			
+			Bukkit.broadcastMessage("§c§lStopping Spleef.");
+			Spleef.setGameState(GameState.STOPPED);
+		}
+				if(Spleef.alive.size() == 0 && Spleef.seconds == 9 && Spleef.hasGameState(GameState.INGAME)) {
 					Bukkit.broadcastMessage("");
-					Bukkit.broadcastMessage("§eNobody won the game");
 					Bukkit.broadcastMessage("");
-					Bukkit.broadcastMessage("§aMap - §e§l" + Spleef.customMapName + " §7created by §e§l" + Spleef.customMapCreator);
-					Bukkit.broadcastMessage("§2§l§m=============================================");
-                   
-					for(Player p :Bukkit.getOnlinePlayers()) {
-						PacketUtils.sendTitle(p, "§eNobody", "§ewon the game", 20, 200, 20);
-				  }
-				}
-				if(Spleef.alive.size() == 0 && Spleef.seconds == 9 & Spleef.hasGameState(GameState.INGAME)) {
-					
+					Bukkit.broadcastMessage("");
 					Bukkit.broadcastMessage("§2§l§m=============================================");
 					Bukkit.broadcastMessage("§aGame - §e§lSpleef");
 					Bukkit.broadcastMessage("");
@@ -392,6 +390,9 @@ public class onUpdate extends BukkitRunnable{
 				}
 				if(Spleef.alive.size() + Spleef.dead.size() == 2 && Spleef.seconds == 9 && !(Spleef.alive.size() == 0) & Spleef.hasGameState(GameState.INGAME))
 					{
+					    Bukkit.broadcastMessage("");
+					    Bukkit.broadcastMessage("");
+					    Bukkit.broadcastMessage("");
 						Bukkit.broadcastMessage("§2§l§m=============================================");
 						Bukkit.broadcastMessage("§aGame - §e§lSpleef");
 						Bukkit.broadcastMessage("");
@@ -406,6 +407,9 @@ public class onUpdate extends BukkitRunnable{
 					}
 				if(Spleef.alive.size() + Spleef.dead.size() >= 3 && Spleef.seconds == 9 && !(Spleef.alive.size() == 0) & Spleef.hasGameState(GameState.INGAME))
 				{
+					Bukkit.broadcastMessage("");
+					Bukkit.broadcastMessage("");
+					Bukkit.broadcastMessage("");
 					Bukkit.broadcastMessage("§2§l§m=============================================");
 					Bukkit.broadcastMessage("§aGame - §e§lSpleef");
 					Bukkit.broadcastMessage("");
@@ -423,8 +427,6 @@ public class onUpdate extends BukkitRunnable{
 	 if(Spleef.hasGameState(GameState.STOPPED))
 		{
 			Game.Runner();
-			
-			Game.randomint = 0;
 		}
 	}	
 		
