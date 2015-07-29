@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
+import org.bukkit.EntityEffect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -43,6 +44,8 @@ import org.bukkit.util.Vector;
 import spleef.Spleef;
 import spleef.Spleef.GameState;
 import utils.PacketUtils;
+import utils.UtilAction;
+import utils.UtilAlg;
 
 public class Events implements Listener{
 	@EventHandler
@@ -448,7 +451,23 @@ public class Events implements Listener{
 				e.setCancelled(true);
 			}
 		}
+		
+		if(Spleef.snowballer.contains(e.getEntity()) || Spleef.archer.contains(e.getEntity())){
+		e.getEntity().playEffect(EntityEffect.HURT);
+		    
+	    UtilAction.velocity(e.getEntity(), 
+	   	           UtilAlg.getTrajectory(e.getDamager(), e.getEntity()), 
+	    	      0.3, false, 0.0D, 0.1D, 10.0D, true);
+		}
+	
+	if(Spleef.brawler.contains(e.getEntity())){
+	e.getEntity().playEffect(EntityEffect.HURT);
+	    
+    UtilAction.velocity(e.getEntity(), 
+   	           UtilAlg.getTrajectory(e.getDamager(), e.getEntity()), 
+    	      0.6, false, 0.0D, 0.1D, 10.0D, true);
 	}
+}
 
 
 	@EventHandler
