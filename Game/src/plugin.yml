@@ -1,6 +1,0 @@
-name: Game
-main: game.Game
-version: 0.1
-commands:
-  game:
-    description: Game Command
